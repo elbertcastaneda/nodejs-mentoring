@@ -1,0 +1,38 @@
+{
+  "name": "nodejs-epam-hw-tasks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/task1.js",
+  "scripts": {
+    "task1": "nodemon src/task1.js",
+    "task1:babel": "nodemon --exec babel-node --ignore 'csv/*.*' src/task1.babel.js",
+    "task2": "nodemon --ignore 'csv/*.*' src/task2.js",
+    "task2:babel": "nodemon --exec babel-node --ignore 'csv/*.*' src/task2.babel.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elbertcastaneda/nodejs-epam-hw-tasks.git"
+  },
+  "keywords": [],
+  "author": "Elbert Castañeda<elbert.castaneda@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elbertcastaneda/nodejs-epam-hw-tasks/issues"
+  },
+  "homepage": "https://github.com/elbertcastaneda/nodejs-epam-hw-tasks#readme",
+  "engines": {
+    "node": ">=10",
+    "yarn": ">=1.20"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.0",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.0",
+    "@types/node": "^14.0.27",
+    "nodemon": "^2.0.4"
+  }
+}

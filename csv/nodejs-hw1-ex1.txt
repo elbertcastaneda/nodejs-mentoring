@@ -1,0 +1,5 @@
+{"book":"The Compound Effect","author":"Darren Hardy","price":"5","field4":"9.48"}
+{"book":"The 7 Habits of Highly Effective People","author":"Stephen R. Covey","price":"4","field4":"23.48"}
+{"book":"The Miracle Morning","author":"Hal Elrod","price":"10","field4":"21.34"}
+{"book":"Influence: The Psychology of Persuasion","author":"Robert B. Cialdini","price":"4","field4":"12.99"}
+{"book":"The ONE Thing","author":"Gary Keller","price":"1","field4":"11.18"}
