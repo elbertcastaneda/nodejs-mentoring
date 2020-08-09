@@ -10,10 +10,10 @@ We need to to install NodeJS or `nvm` if you prefer:
 
 ## Homeworks source code index
 
-| Homework |    Folder     |
-|:--------:|--------------:|
-|    01    |  **src/hw01** |
-|    02    |  **src/hw02** |
+| Homework |    Folder     |                       Git Branch                        |
+|:--------:|--------------:|---------------------------------------------------------|
+|    01    |  **src/hw01** | homework/01-basics-nodejs-fundamental-theory            |
+|    02    |  **src/hw02** | homework/02-in-memory-crud-rest-service-with-validation |
 
 ---
 ---
