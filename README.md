@@ -1,10 +1,19 @@
-# NodeJS Global Mentoring Program 2020Q3 Homework 1
+# NodeJS Global Mentoring Program 2020Q3 - Homeworks
 
 ## Prerequisites
 
 We need to to install NodeJS or `nvm` if you prefer:
 
 - [Node.js](https://nodejs.org/en/)
+
+---
+
+## Homeworks source code index
+
+| Homework |    Folder     |
+|:--------:|--------------:|
+|    01    |  **src/hw01** |
+|    02    |  **src/hw02** |
 
 ---
 ---
@@ -43,22 +52,39 @@ With `yarn`:
 yarn install
 ```
 
-----
+---
+---
 
 ### Run tasks:
 
+#### **Homework 02**
+
 With `npm`:
 ```bash
-npm run task1
-npm run task2
-npm run task1:babel
-npm run task2:babel
+npm run start
 ```
 
 With `yarn`:
 ```bash
-yarn task1
-yarn task2
-yarn task1:babel
-yarn task2:babel
+yarn start
+```
+
+---
+
+#### **Homework 01**
+
+With `npm`:
+```bash
+npm run hw01:task1
+npm run hw01:task2
+npm run hw01:task1:babel
+npm run hw01:task2:babel
+```
+
+With `yarn`:
+```bash
+yarn hw01:task1
+yarn hw01:task2
+yarn hw01:task1:babel
+yarn hw01:task2:babel
 ```
