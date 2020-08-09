@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "lib": ["ESNext"],
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "isolatedModules": false,
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmit": true,
+    "baseUrl": "./src/hw02",
+    "outDir": "./build",
+    "rootDir": "./",
+    "paths": {}
+  },
+  "include": ["src",  ".eslintrc.js"],
+  "exclude": ["node_modules", "csv"]
+}
