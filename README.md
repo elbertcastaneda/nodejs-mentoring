@@ -41,13 +41,11 @@ cd nodejs-epam-hw-tasks
 ### Install dependencies:
 
 With `npm`:
-
 ```console
 npm install
 ```
 
 With `yarn`:
-
 ```console
 yarn install
 ```
@@ -65,6 +63,7 @@ npm run start
 ```
 
 With `yarn`:
+
 ```console
 yarn start
 ```
