@@ -1,13 +1,15 @@
 {
   "name": "nodejs-epam-hw-tasks",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/task1.js",
+  "version": "2.0.0",
+  "description": "NodeJS Global Mentoring Program 2020Q3",
+  "main": "src/hw02/index.ts",
   "scripts": {
-    "task1": "nodemon src/task1.js",
-    "task1:babel": "nodemon --exec babel-node --ignore 'csv/*.*' src/task1.babel.js",
-    "task2": "nodemon --ignore 'csv/*.*' src/task2.js",
-    "task2:babel": "nodemon --exec babel-node --ignore 'csv/*.*' src/task2.babel.js"
+    "hw01:task1": "nodemon src/hw01/task1.js",
+    "hw01:task1:babel": "nodemon --exec babel-node --ignore 'csv/*.*' src/hw01/task1.babel.js",
+    "hw01:task2": "nodemon --ignore 'csv/*.*' src/hw01/task2.js",
+    "hw01:task2:babel": "nodemon --exec babel-node --ignore 'csv/*.*' src/hw01/task2.babel.js",
+    "lint": "eslint . --ext '.js,.ts'",
+    "start": "nodemon --watch 'src/hw02' --ext 'ts,json' --exec 'ts-node -r tsconfig-paths/register --project tsconfig.json' src/hw02/index.ts"
   },
   "repository": {
     "type": "git",
@@ -29,10 +31,19 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.0",
+    "@babel/core": "^7.11.1",
     "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.11.0",
+    "@types/express": "^4.17.7",
     "@types/node": "^14.0.27",
-    "nodemon": "^2.0.4"
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb-typescript": "^9.0.0",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.9.7"
   }
 }
