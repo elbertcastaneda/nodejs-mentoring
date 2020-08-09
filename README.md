@@ -11,7 +11,7 @@ We need to to install NodeJS or `nvm` if you prefer:
 ## Homeworks source code index
 
 | Homework |    Folder     |                       Git Branch                        |
-|:--------:|--------------:|---------------------------------------------------------|
+|:--------:|:--------------|---------------------------------------------------------|
 |    01    |  **src/hw01** | homework/01-basics-nodejs-fundamental-theory            |
 |    02    |  **src/hw02** | homework/02-in-memory-crud-rest-service-with-validation |
 
@@ -24,7 +24,7 @@ Follow next instructions to be able to clone this project and run it locally.
 
 ### Clone the repository
 
-```bash
+```console
 git clone https://github.com/elbertcastaneda/nodejs-epam-hw-tasks
 ```
 
@@ -32,7 +32,7 @@ git clone https://github.com/elbertcastaneda/nodejs-epam-hw-tasks
 
 ### Go to project folder
 
-```bash
+```console
 cd nodejs-epam-hw-tasks
 ```
 
@@ -41,14 +41,12 @@ cd nodejs-epam-hw-tasks
 ### Install dependencies:
 
 With `npm`:
-
-```bash
+```console
 npm install
 ```
 
 With `yarn`:
-
-```bash
+```console
 yarn install
 ```
 
@@ -60,12 +58,13 @@ yarn install
 #### **Homework 02**
 
 With `npm`:
-```bash
+```console
 npm run start
 ```
 
 With `yarn`:
-```bash
+
+```console
 yarn start
 ```
 
@@ -74,7 +73,7 @@ yarn start
 #### **Homework 01**
 
 With `npm`:
-```bash
+```console
 npm run hw01:task1
 npm run hw01:task2
 npm run hw01:task1:babel
@@ -82,7 +81,7 @@ npm run hw01:task2:babel
 ```
 
 With `yarn`:
-```bash
+```console
 yarn hw01:task1
 yarn hw01:task2
 yarn hw01:task1:babel
