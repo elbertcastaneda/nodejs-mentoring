@@ -1,2 +1,3 @@
-// eslint-disable-next-line no-console
-console.log('Ready to start.');
+import main from './main';
+
+main();

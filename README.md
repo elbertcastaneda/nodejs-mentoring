@@ -57,6 +57,9 @@ yarn install
 
 #### **Homework 02**
 
+- I implemented `TypeScript`.
+- I implemented `eslint-airbnb` and `eslint-airbnb-typescript` to avoid problems with `TypeScript` and `eslint`.
+
 With `npm`:
 ```console
 npm run start
