@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "4cd2b3c9-bd93-4ae1-be9d-7611a9eaa21c",
+		"name": "EPAM - Node.js Mentoring (Elbert Homework 2)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}users/45D73D2C-B006-4C1B-ABCB-77AFFD0C6C51",
+					"host": [
+						"{{baseUrl}}users"
+					],
+					"path": [
+						"45D73D2C-B006-4C1B-ABCB-77AFFD0C6C51"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"elbert.castaneda\",\n    \"age\": 35,\n    \"password\": \"software\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}users",
+					"host": [
+						"{{baseUrl}}users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"elbert.castaneda\",\n    \"age\": 35,\n    \"password\": \"softwaree\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}users/FDD4F772-AD1D-4FFF-9A73-A4C1B9218D35",
+					"host": [
+						"{{baseUrl}}users"
+					],
+					"path": [
+						"FDD4F772-AD1D-4FFF-9A73-A4C1B9218D35"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get auto-suggest lis",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}users/auto-suggest?limit=5&loginSubstring=elbert",
+					"host": [
+						"{{baseUrl}}users"
+					],
+					"path": [
+						"auto-suggest"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "loginSubstring",
+							"value": "elbert"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}users/7F643910-72CD-47BC-B78D-A9FAA720E70A",
+					"host": [
+						"{{baseUrl}}users"
+					],
+					"path": [
+						"7F643910-72CD-47BC-B78D-A9FAA720E70A"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b1fce7fe-c393-4aa8-aacb-96b796495cff",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "82833d72-9fee-4279-8000-922090ec5b20",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "4b0d6a8a-8ee2-449c-beac-c10cb040791f",
+			"key": "baseUrl",
+			"value": "http://localhost:5000/api/"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

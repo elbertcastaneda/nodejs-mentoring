@@ -10,10 +10,10 @@ We need to to install NodeJS or `nvm` if you prefer:
 
 ## Homeworks source code index
 
-| Homework |    Folder     |                       Git Branch                        |
-|:--------:|:--------------|---------------------------------------------------------|
-|    01    |  **src/hw01** | homework/01-basics-nodejs-fundamental-theory            |
-|    02    |  **src/hw02** | homework/02-in-memory-crud-rest-service-with-validation |
+| Homework |    Folder     |                       Git Branch                                |
+|:--------:|:--------------|-----------------------------------------------------------------|
+|    01    |  **src/hw01** | homework/01-basics-nodejs-fundamental-theory                    |
+|    02    |  **src/hw02** | homework/02-in-memory-crud-rest-service-with-validation, master |
 
 ---
 ---
@@ -56,6 +56,10 @@ yarn install
 ### Run tasks:
 
 #### **Homework 02**
+
+- I implemented `TypeScript`.
+- I implemented `eslint-airbnb` and `eslint-airbnb-typescript` to avoid problems with `TypeScript` and `eslint`.
+- I decided to use `class-validator` instead of `joi`/`joi-validation` because in my experience the annotations are a more elegant solution for `TypeScript`.
 
 With `npm`:
 ```console
