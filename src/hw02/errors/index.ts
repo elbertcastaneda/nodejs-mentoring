@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
-export { default as NotFoundError } from './NotFoundError';
+export { default as NotFoundError } from './notFoundError';
+export { default as ValidationError } from './validationError';

@@ -59,6 +59,7 @@ yarn install
 
 - I implemented `TypeScript`.
 - I implemented `eslint-airbnb` and `eslint-airbnb-typescript` to avoid problems with `TypeScript` and `eslint`.
+- I decided to use `class-validator` instead of `joi`/`joi-validation` because in my experience the annotations are a more elegant solution for `TypeScript`.
 
 With `npm`:
 ```console
