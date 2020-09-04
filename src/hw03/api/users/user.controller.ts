@@ -1,8 +1,8 @@
 import { Request, Response, Router } from 'express';
 
 import { NotFoundError, ValidationError } from 'errors';
-import GetAutoSuggestDto from './dtos/getAutoSuggestDto';
-import UserRepository from './user.repository';
+import FindAllDto from './dtos/findAllDto';
+import { UserRepository } from './user.repository';
 
 const uuidPatternRE = '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}';
 const prefixPath = '/api/users';
@@ -48,8 +48,8 @@ export default class UsersController {
   }
 
   initialize() {
+    this.router.get(getPath(), this.findAll.bind(this));
     this.router.get(getPath(`:userId(${uuidPatternRE})`), this.getById.bind(this));
-    this.router.get(getPath('auto-suggest'), this.getAutoSuggest.bind(this));
     this.router.post(getPath(), this.create.bind(this));
     this.router.put(getPath(`:userId(${uuidPatternRE})`), this.update.bind(this));
     this.router.delete(getPath(`:userId(${uuidPatternRE})`), this.delete.bind(this));
@@ -59,11 +59,11 @@ export default class UsersController {
     return this.router;
   }
 
-  private getById(request: Request, response: Response) {
+  private async getById(request: Request, response: Response) {
     const { userId } = request.params;
 
     try {
-      const user = this.repository.getById(userId);
+      const user = await this.repository.getById(userId);
 
       response.json(user);
     } catch (ex) {
@@ -71,15 +71,16 @@ export default class UsersController {
     }
   }
 
-  private getAutoSuggest({ query }: Request, response: Response) {
-    const filters: GetAutoSuggestDto = query;
+  private async findAll({ query }: Request, response: Response) {
+    const filters: FindAllDto = query;
+    const users = await this.repository.findAll(filters);
 
-    response.json(this.repository.getAutoSuggest(filters));
+    response.json(users);
   }
 
   private async create(request: Request, response: Response) {
     try {
-      const user = await this.repository.createAndSave(request.body);
+      const user = await this.repository.save(request.body);
 
       response.status(201).json(user);
     } catch (ex) {
@@ -91,9 +92,9 @@ export default class UsersController {
     const { userId } = request.params;
 
     try {
-      const user = await this.repository.update(userId, request.body);
+      await this.repository.update(userId, request.body);
 
-      response.json(user);
+      response.sendStatus(204);
     } catch (ex) {
       processError(response, ex);
     }
