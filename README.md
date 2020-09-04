@@ -13,7 +13,8 @@ We need to to install NodeJS or `nvm` if you prefer:
 | Homework |    Folder     |                       Git Branch                                |
 |:--------:|:--------------|-----------------------------------------------------------------|
 |    01    |  **src/hw01** | homework/01-basics-nodejs-fundamental-theory                    |
-|    02    |  **src/hw02** | homework/02-in-memory-crud-rest-service-with-validation, master |
+|    02    |  **src/hw02** | homework/02-in-memory-crud-rest-service-with-validation         |
+|    02    |  **src/hw03** | homework/03-postgres-sequelize, master                          |
 
 ---
 ---
@@ -55,11 +56,15 @@ yarn install
 
 ### Run tasks:
 
-#### **Homework 02**
+#### **Homework 03**
 
 - I implemented `TypeScript`.
 - I implemented `eslint-airbnb` and `eslint-airbnb-typescript` to avoid problems with `TypeScript` and `eslint`.
-- I decided to use `class-validator` instead of `joi`/`joi-validation` because in my experience the annotations are a more elegant solution for `TypeScript`.
+- I implemented `TypeORM` instead of `Sequelize` in my opinion works better with TypeScript
+- I decided to used another structure for the files, I am using a very similar structure then NestJS.
+
+- If you have docker installed, you can install `postgres` with: `docker-compose up -d --build`, you can remove the docker containers with: `docker-compose down`
+- If you installed `postgres` you can create the database with `yarn run db:create:schema && yarn run db:migration:run`, and you can remove `yarn run db:drop:schema`
 
 With `npm`:
 ```console
@@ -70,6 +75,25 @@ With `yarn`:
 
 ```console
 yarn start
+```
+
+---
+
+#### **Homework 02**
+
+- I implemented `TypeScript`.
+- I implemented `eslint-airbnb` and `eslint-airbnb-typescript` to avoid problems with `TypeScript` and `eslint`.
+- I decided to use `class-validator` instead of `joi`/`joi-validation` because in my experience the annotations are a more elegant solution for `TypeScript`.
+
+With `npm`:
+```console
+npm run hw02:start
+```
+
+With `yarn`:
+
+```console
+yarn hw02:start
 ```
 
 ---
