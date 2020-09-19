@@ -14,8 +14,8 @@ const getNotFoundByIdMessage = (id: string) => `User wit id: '${id}' not found`;
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
   async getById(id: string) {
-    const user = await this.findOne(id, {
-      where: { isDeleted: false },
+    const user = await this.findOne({
+      where: { id, isDeleted: false },
     });
 
     if (!user) {
