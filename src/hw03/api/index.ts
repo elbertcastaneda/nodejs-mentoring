@@ -1,5 +1,7 @@
-import createUserModule from './users';
+import createGroupModule from './groups';
+import createUsersModule from './users';
 
 export default [
-  createUserModule,
+  createGroupModule,
+  createUsersModule,
 ];
