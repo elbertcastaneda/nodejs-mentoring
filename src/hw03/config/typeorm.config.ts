@@ -1,4 +1,5 @@
 import { DatabaseType } from 'typeorm';
+import Group from 'api/groups/group.entity';
 import User from 'api/users/user.entity';
 
 const {
@@ -15,8 +16,7 @@ const postgresDatabase: DatabaseType = 'postgres';
 // eslint-disable-next-line import/prefer-default-export
 export const typeOrmConfig = {
   database: TYPEORM_DATABASE,
-  // entities: [`${__dirname}../**/*.entity.ts`],
-  entities: [User],
+  entities: [Group, User],
   host: TYPEORM_HOST,
   keepConnectionAlive: true,
   logging: Boolean(TYPEORM_LOGGING),

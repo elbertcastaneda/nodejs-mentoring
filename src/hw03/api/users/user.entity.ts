@@ -14,7 +14,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import IUser from './user.type';
 
-@Entity()
+@Entity({ name: 'users' })
 export default class User extends BaseEntity implements IUser {
   @IsUUID('4')
   @IsDefined()
