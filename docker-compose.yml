@@ -15,7 +15,6 @@ services:
     networks:
       - pg_ngmp20
     restart: unless-stopped
-
   pgadmin_ngmp20:
     container_name: pgadmin_ngmp20_container
     image: dpage/pgadmin4

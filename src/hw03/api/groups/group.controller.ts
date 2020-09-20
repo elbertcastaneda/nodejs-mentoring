@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
-import ApiController, { processError } from 'api/_base/apiController';
+import ApiController from 'api/_base/apiController';
+import { processApiError } from 'api/_utils';
 import { GroupRepository } from './group.repository';
 
 export default class GroupsController extends ApiController {
@@ -14,6 +15,9 @@ export default class GroupsController extends ApiController {
     super('groups');
 
     this.repository = repository;
+
+    this.createMethod({ method: 'get', path: ':uuid/users' }, this.getUsers);
+    this.createMethod({ method: 'post', path: ':uuid/users' }, this.addUsers);
   }
 
   async getById(request: Request, response: Response) {
@@ -24,23 +28,23 @@ export default class GroupsController extends ApiController {
 
       response.json(group);
     } catch (ex) {
-      processError(response, ex);
+      processApiError(response, ex);
     }
   }
 
-  async findAll(request: Request, response: Response) {
+  async getAll(request: Request, response: Response) {
     const groups = await this.repository.findAll();
 
     response.json(groups);
   }
 
-  async create(request: Request, response: Response) {
+  async add(request: Request, response: Response) {
     try {
       const group = await this.repository.save(request.body);
 
       response.status(201).json(group);
     } catch (ex) {
-      processError(response, ex);
+      processApiError(response, ex);
     }
   }
 
@@ -52,7 +56,7 @@ export default class GroupsController extends ApiController {
 
       response.sendStatus(204);
     } catch (ex) {
-      processError(response, ex);
+      processApiError(response, ex);
     }
   }
 
@@ -64,7 +68,30 @@ export default class GroupsController extends ApiController {
 
       response.sendStatus(204);
     } catch (ex) {
-      processError(response, ex);
+      processApiError(response, ex);
+    }
+  }
+
+  async getUsers(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+      const group = await this.repository.getById(id);
+
+      response.status(201).json(group.users);
+    } catch (ex) {
+      processApiError(response, ex);
+    }
+  }
+
+  async addUsers(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+      const { userIds } = request.body;
+      const group = await this.repository.addUsers(id, userIds);
+
+      response.status(201).json(group);
+    } catch (ex) {
+      processApiError(response, ex);
     }
   }
 }
