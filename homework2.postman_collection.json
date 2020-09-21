@@ -1,299 +1,126 @@
 {
 	"info": {
-		"_postman_id": "ceca80bc-4597-4994-9c65-71daaa70abcb",
+		"_postman_id": "4cd2b3c9-bd93-4ae1-be9d-7611a9eaa21c",
 		"name": "EPAM - Node.js Mentoring (Elbert Homework 2)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "users",
-			"item": [
-				{
-					"name": "get user by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}users/fb573bb5-e571-4030-bc3d-abfcad2fb209",
-							"host": [
-								"{{baseUrl}}users"
-							],
-							"path": [
-								"fb573bb5-e571-4030-bc3d-abfcad2fb209"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create user",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"login\": \"el-castanedaaaaaaa\",\n    \"age\": 35,\n    \"password\": \"software\" \n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}users",
-							"host": [
-								"{{baseUrl}}users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update user",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"login\": \"elbertcastaneda1985\",\n    \"age\": 35,\n    \"password\": \"softwaree12345\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}users/ef8b1bab-f17f-4dd4-8b7d-2b0f5294af8a",
-							"host": [
-								"{{baseUrl}}users"
-							],
-							"path": [
-								"ef8b1bab-f17f-4dd4-8b7d-2b0f5294af8a"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all users",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}users/",
-							"host": [
-								"{{baseUrl}}users"
-							],
-							"path": [
-								""
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "5",
-									"disabled": true
-								},
-								{
-									"key": "loginSubstring",
-									"value": "elbert",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete user",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}users/82760a04-d524-40b9-9c5a-7cd5487b8dfb",
-							"host": [
-								"{{baseUrl}}users"
-							],
-							"path": [
-								"82760a04-d524-40b9-9c5a-7cd5487b8dfb"
-							]
-						}
-					},
-					"response": []
+			"name": "get user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}users/45D73D2C-B006-4C1B-ABCB-77AFFD0C6C51",
+					"host": [
+						"{{baseUrl}}users"
+					],
+					"path": [
+						"45D73D2C-B006-4C1B-ABCB-77AFFD0C6C51"
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			},
+			"response": []
 		},
 		{
-			"name": "groups",
-			"item": [
-				{
-					"name": "users",
-					"item": [
-						{
-							"name": "assign users into a group",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"userIds\": [\n        \"ef8b1bab-f17f-4dd4-8b7d-2b0f5294af8a\",\n        \"201f5cf5-9f2b-4de0-b720-892a9b8c3fda\"\n    ]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}groups/72dd2720-3828-412c-abe6-21cda2871ccd/users",
-									"host": [
-										"{{baseUrl}}groups"
-									],
-									"path": [
-										"72dd2720-3828-412c-abe6-21cda2871ccd",
-										"users"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get users by group",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}groups/72dd2720-3828-412c-abe6-21cda2871ccd/users",
-									"host": [
-										"{{baseUrl}}groups"
-									],
-									"path": [
-										"72dd2720-3828-412c-abe6-21cda2871ccd",
-										"users"
-									]
-								}
-							},
-							"response": []
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"elbert.castaneda\",\n    \"age\": 35,\n    \"password\": \"software\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					}
 				},
-				{
-					"name": "get group by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}groups/72dd2720-3828-412c-abe6-21cda2871ccd",
-							"host": [
-								"{{baseUrl}}groups"
-							],
-							"path": [
-								"72dd2720-3828-412c-abe6-21cda2871ccd"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create group",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"writter\",\n    \"permissions\": [\n        \"READ\"\n    ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}groups",
-							"host": [
-								"{{baseUrl}}groups"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update group",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"writterr\",\n    \"permissions\": [\"READ\", \"WRITE\", \"DELETE\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}groups/92841de4-e6e7-48e6-ad0d-9cfbc9f51444",
-							"host": [
-								"{{baseUrl}}groups"
-							],
-							"path": [
-								"92841de4-e6e7-48e6-ad0d-9cfbc9f51444"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all groups",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}groups/",
-							"host": [
-								"{{baseUrl}}groups"
-							],
-							"path": [
-								""
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "5",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete group",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}groups/7F643910-72CD-47BC-B78D-A9FAA720E70A",
-							"host": [
-								"{{baseUrl}}groups"
-							],
-							"path": [
-								"7F643910-72CD-47BC-B78D-A9FAA720E70A"
-							]
-						}
-					},
-					"response": []
+				"url": {
+					"raw": "{{baseUrl}}users",
+					"host": [
+						"{{baseUrl}}users"
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"elbert.castaneda\",\n    \"age\": 35,\n    \"password\": \"softwaree\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}users/FDD4F772-AD1D-4FFF-9A73-A4C1B9218D35",
+					"host": [
+						"{{baseUrl}}users"
+					],
+					"path": [
+						"FDD4F772-AD1D-4FFF-9A73-A4C1B9218D35"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get auto-suggest lis",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}users/auto-suggest?limit=5&loginSubstring=elbert",
+					"host": [
+						"{{baseUrl}}users"
+					],
+					"path": [
+						"auto-suggest"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "loginSubstring",
+							"value": "elbert"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}users/7F643910-72CD-47BC-B78D-A9FAA720E70A",
+					"host": [
+						"{{baseUrl}}users"
+					],
+					"path": [
+						"7F643910-72CD-47BC-B78D-A9FAA720E70A"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "df0422ac-6710-4d97-93fc-c0f57a43a71b",
+				"id": "b1fce7fe-c393-4aa8-aacb-96b796495cff",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -303,7 +130,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "8dc9488d-d623-4a1a-882c-2ddacbeeca64",
+				"id": "82833d72-9fee-4279-8000-922090ec5b20",
 				"type": "text/javascript",
 				"exec": [
 					""
