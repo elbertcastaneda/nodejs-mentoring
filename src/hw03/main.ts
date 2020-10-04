@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { createConnection } from 'typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import apiModulesCreators from './api';
@@ -6,6 +7,7 @@ import apiModulesCreators from './api';
 const startServer = async (): Promise<void> => {
   const app = express();
 
+  app.use(cors());
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   app.use(apiModulesCreators.map((createModule) => createModule()));
