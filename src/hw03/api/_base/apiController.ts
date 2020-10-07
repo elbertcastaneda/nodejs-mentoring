@@ -5,8 +5,8 @@ const prefixApi = '/api';
 const createPath = (prefixPath: string, path = '') => `${prefixApi}/${prefixPath}/${path}`;
 
 type RestMethods = 'get' | 'post' | 'put' | 'delete' | 'patch';
-type CallbackRestMethod = (request: Request, response: Response) => Promise<any>;
-type CreateMethodOptions = { method: RestMethods, path: string };
+type CallbackRestMethod = (request: Request, response: Response, next?: Function) => Promise<any>;
+type CreateMethodOptions = { method: RestMethods, path?: string };
 
 export default abstract class ApiController {
   private subPath: string;
@@ -21,32 +21,41 @@ export default abstract class ApiController {
   }
 
   initialize() {
-    this.router.get(this.getPath(), this.getAll.bind(this));
-    this.router.get(this.getPath(`:id(${uuidPatternRE})`), this.getById.bind(this));
-    this.router.post(this.getPath(), this.add.bind(this));
-    this.router.put(this.getPath(`:id(${uuidPatternRE})`), this.update.bind(this));
-    this.router.delete(this.getPath(`:id(${uuidPatternRE})`), this.delete.bind(this));
+    this.createMethod({ method: 'get' }, this.getAll);
+    this.createMethod({ method: 'get', path: ':uuid' }, this.getById);
+    this.createMethod({ method: 'post' }, this.add);
+    this.createMethod({ method: 'put', path: ':uuid' }, this.update);
+    this.createMethod({ method: 'delete', path: ':uuid' }, this.delete);
   }
 
-  protected createMethod({ method, path }: CreateMethodOptions, callback: CallbackRestMethod) {
+  protected createMethod({ method, path = '' }: CreateMethodOptions, callback: CallbackRestMethod) {
     const path2Work = path.replace(':uuid', `:id(${uuidPatternRE})`);
 
-    this.router[method](this.getPath(path2Work), callback.bind(this));
+    this.router[method](
+      this.getPath(path2Work),
+      async (req: Request, res: Response, next: Function) => {
+        try {
+          await callback.bind(this)(req, res, next);
+        } catch (err) {
+          next(err);
+        }
+      },
+    );
   }
 
   protected getPath(path: string = '') {
     return createPath(this.subPath, path);
   }
 
-  abstract getById(request: Request, response: Response): Promise<any>;
+  abstract getById(request: Request, response: Response, next?: Function): Promise<any>;
 
-  abstract getAll(request: Request, response: Response): Promise<any>;
+  abstract getAll(request: Request, response: Response, next?: Function): Promise<any>;
 
-  abstract add(request: Request, response: Response): Promise<any>;
+  abstract add(request: Request, response: Response, next?: Function): Promise<any>;
 
-  abstract update(request: Request, response: Response): Promise<any>;
+  abstract update(request: Request, response: Response, next?: Function): Promise<any>;
 
-  abstract delete(request: Request, response: Response): Promise<any>;
+  abstract delete(request: Request, response: Response, next?: Function): Promise<any>;
 
   getRouter() {
     return this.router;

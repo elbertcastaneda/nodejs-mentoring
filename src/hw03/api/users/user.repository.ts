@@ -10,7 +10,7 @@ import { NotFoundError } from 'errors';
 import FindAllDto from './dtos/findAllDto';
 import User from './user.entity';
 
-const getNotFoundByIdMessage = (id: string) => `User wit id: '${id}' not found`;
+const getNotFoundByIdMessage = (id: string) => `User with id: '${id}' not found`;
 
 @EntityRepository(User)
 export class UserRepository extends AbstractRepository<User> {
