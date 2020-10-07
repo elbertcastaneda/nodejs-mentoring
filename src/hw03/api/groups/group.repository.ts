@@ -3,12 +3,12 @@ import {
   EntityRepository,
   getCustomRepository,
 } from 'typeorm';
-import { NotFoundError } from 'errors';
+import { BadRequestError, NotFoundError } from 'errors';
 import createUserRepository from 'api/users/user.repository';
 
 import Group from './group.entity';
 
-const getNotFoundByIdMessage = (id: string) => `Group wit id: '${id}' not found`;
+const getNotFoundByIdMessage = (id: string) => `Group with id: '${id}' not found`;
 
 @EntityRepository(Group)
 export class GroupRepository extends AbstractRepository<Group> {
@@ -60,11 +60,11 @@ export class GroupRepository extends AbstractRepository<Group> {
     const users = await usersRepository.findByIds(userIds);
 
     if (users.length !== userIds.length) {
-      throw new Error('Some or all users received does not exist in the system');
+      throw new BadRequestError('Some or all users received does not exist in the system');
     }
 
     if (!group.users) {
-      throw new Error('Users collection is necessary in the group to add user to it');
+      throw new BadRequestError('Users collection is necessary in the group to add user to it');
     }
 
     const currentUserIds = group.users.map((cu) => cu.id);

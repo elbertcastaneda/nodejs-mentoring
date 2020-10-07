@@ -3,6 +3,7 @@ import cors from 'cors';
 import { createConnection } from 'typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import apiModulesCreators from './api';
+import { serverErrorHandler, simpleLogger } from './middlewares';
 
 const startServer = async (): Promise<void> => {
   const app = express();
@@ -10,7 +11,10 @@ const startServer = async (): Promise<void> => {
   app.use(cors());
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
+  app.use(simpleLogger);
+
   app.use(apiModulesCreators.map((createModule) => createModule()));
+  app.use(serverErrorHandler);
 
   await app.listen(5000, () => {
     // eslint-disable-next-line no-console

@@ -11,6 +11,7 @@ import {
 import {
   IsAlphanumeric,
   IsDefined,
+  IsInt,
   IsUUID,
   Max,
   Min,
@@ -39,6 +40,7 @@ export default class User extends BaseEntity implements IUser {
   password?: string;
 
   @IsDefined()
+  @IsInt()
   @Min(4)
   @Max(130)
   @Column()

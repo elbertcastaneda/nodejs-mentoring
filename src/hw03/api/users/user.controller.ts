@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 
 import ApiController from 'api/_base/apiController';
-import { processApiError } from 'api/_utils';
 import FindAllDto from './dtos/findAllDto';
 import { UserRepository } from './user.repository';
 
@@ -21,13 +20,9 @@ export default class UsersController extends ApiController {
   async getById(request: Request, response: Response) {
     const { id } = request.params;
 
-    try {
-      const user = await this.repository.getById(id);
+    const user = await this.repository.getById(id);
 
-      response.json(user);
-    } catch (ex) {
-      processApiError(response, ex);
-    }
+    response.json(user);
   }
 
   async getAll({ query }: Request, response: Response) {
@@ -38,38 +33,24 @@ export default class UsersController extends ApiController {
   }
 
   async add(request: Request, response: Response) {
-    try {
-      const user = await this.repository.save(request.body);
+    const user = await this.repository.save(request.body);
 
-      response.status(201).json(user);
-    } catch (ex) {
-      // eslint-disable-next-line no-console
-      console.log(JSON.stringify(ex), 'error');
-      processApiError(response, ex);
-    }
+    response.status(201).json(user);
   }
 
   async update(request: Request, response: Response) {
     const { id } = request.params;
 
-    try {
-      await this.repository.update(id, request.body);
+    await this.repository.update(id, request.body);
 
-      response.sendStatus(204);
-    } catch (ex) {
-      processApiError(response, ex);
-    }
+    response.sendStatus(204);
   }
 
   async delete(request: Request, response: Response) {
     const { id } = request.params;
 
-    try {
-      this.repository.delete(id);
+    this.repository.delete(id);
 
-      response.sendStatus(204);
-    } catch (ex) {
-      processApiError(response, ex);
-    }
+    response.sendStatus(204);
   }
 }
