@@ -3,5 +3,6 @@ export default class NotFoundError extends Error {
     super(message);
 
     this.name = 'NotFoundError';
+    Object.setPrototypeOf(this, NotFoundError.prototype);
   }
 }

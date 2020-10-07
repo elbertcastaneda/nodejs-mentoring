@@ -14,7 +14,8 @@ We need to to install NodeJS or `nvm` if you prefer:
 |:--------:|:--------------|-----------------------------------------------------------------|
 |    01    |  **src/hw01** | homework/01-basics-nodejs-fundamental-theory                    |
 |    02    |  **src/hw02** | homework/02-in-memory-crud-rest-service-with-validation         |
-|  03, 04  |  **src/hw03** | homework/03-postgres-sequelize, master                          |
+|  03, 04  |  **src/hw03** | homework/03-postgres-sequelize                                  |
+|    05    |  **src/hw03** | homework/05-logging-error-handling, master                      |
 
 ---
 ---
@@ -56,7 +57,7 @@ yarn install
 
 ### Run tasks:
 
-#### **Homework 03 and 04**
+#### **Homework 03, 04 and 05**
 
 - I implemented `TypeScript`.
 - I implemented `eslint-airbnb` and `eslint-airbnb-typescript` to avoid problems with `TypeScript` and `eslint`.
