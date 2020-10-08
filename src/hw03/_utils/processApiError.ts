@@ -14,6 +14,22 @@ const responseBadRequestMessage = (response: Response, message: string) => {
   response.status(400).json({ message });
 };
 
+export const isApiError = (ex: Error) => {
+  if (ex instanceof ApiValidationError) {
+    return true;
+  }
+
+  if (ex instanceof BadRequestError) {
+    return true;
+  }
+
+  if (ex instanceof NotFoundError) {
+    return true;
+  }
+
+  return false;
+};
+
 const processApiError = (response: Response, ex: Error) => {
   const { message } = ex;
 
