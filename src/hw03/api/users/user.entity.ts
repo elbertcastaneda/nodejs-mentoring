@@ -18,7 +18,7 @@ import {
   validate,
 } from 'class-validator';
 import { v4 as uuid } from 'uuid';
-import { processValidationErrors } from 'api/_utils';
+import { processValidationErrors } from '_utils';
 import Group from 'api/groups/group.entity';
 import IUser from './user.type';
 

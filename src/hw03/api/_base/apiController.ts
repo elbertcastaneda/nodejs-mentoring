@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import { logger } from '_utils';
 
 const uuidPatternRE = '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}';
 const prefixApi = '/api';
@@ -37,6 +38,7 @@ export default abstract class ApiController {
         try {
           await callback.bind(this)(req, res, next);
         } catch (err) {
+          logger.error(`method: ${req.path}(${req.method}), query: ${JSON.stringify(req.query)}, body: ${JSON.stringify(req.body)}, error: ${err.message}`);
           next(err);
         }
       },
