@@ -2,8 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import { createConnection } from 'typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
+import { isApiError, logger } from './_utils';
 import apiModulesCreators from './api';
-import { serverErrorHandler, simpleLogger } from './middlewares';
+import { profiler, serverErrorHandler, simpleLogger } from './middlewares';
 
 const startServer = async (): Promise<void> => {
   const app = express();
@@ -12,13 +13,26 @@ const startServer = async (): Promise<void> => {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   app.use(simpleLogger);
+  app.use(profiler);
 
   app.use(apiModulesCreators.map((createModule) => createModule()));
   app.use(serverErrorHandler);
 
+  // get the unhandled rejection and throw it to another fallback handler we already have.
+  process.on('unhandledRejection', (reason: Error) => {
+    throw reason;
+  });
+
+  process.on('uncaughtException', (error: Error) => {
+    logger.fatal(error.message, error);
+
+    if (!isApiError(error)) {
+      process.exit(1);
+    }
+  });
+
   await app.listen(5000, () => {
-    // eslint-disable-next-line no-console
-    console.log('Server running in: http://localhost:5000/');
+    logger.debug('Server running in: http://localhost:5000/');
   });
 };
 
@@ -26,6 +40,6 @@ const main = () => createConnection(typeOrmConfig)
   .then(async () => {
     await startServer();
   })
-  // eslint-disable-next-line no-console
-  .catch((error) => console.error('TypeORM connection error: ', error));
+  .catch((error) => logger.fatal('TypeORM connection error: ', error));
+
 export default main;
