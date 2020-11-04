@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import passport from 'passport';
 import { logger } from '_utils';
 
 const uuidPatternRE = '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}';
@@ -34,6 +35,7 @@ export default abstract class ApiController {
 
     this.router[method](
       this.getPath(path2Work),
+      passport.authenticate('jwt', { session: false }),
       async (req: Request, res: Response, next: Function) => {
         try {
           await callback.bind(this)(req, res, next);
