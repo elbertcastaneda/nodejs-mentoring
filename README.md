@@ -81,7 +81,7 @@ yarn start
 
 Simple Documentation on:
 
-- https://documenter.getpostman.com/view/11523570/TVKD1x36
+- https://documenter.getpostman.com/view/11523570/TVYQ3aeF
 
 ---
 

@@ -29,7 +29,13 @@ export class GroupRepository extends AbstractRepository<Group> {
   }
 
   async delete(id: string) {
-    await this.repository.delete(id);
+    const result = await this.repository.delete(id);
+
+    if (!result.affected) {
+      throw new NotFoundError(getNotFoundByIdMessage(id));
+    }
+
+    return result;
   }
 
   async save(partialEntity: Partial<Group>) {

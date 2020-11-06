@@ -15,6 +15,7 @@ import {
   IsUUID,
   Max,
   Min,
+  Length,
   validate,
 } from 'class-validator';
 import { v4 as uuid } from 'uuid';
@@ -31,11 +32,13 @@ export default class User extends BaseEntity implements IUser {
 
   @IsAlphanumeric()
   @IsDefined()
+  @Length(4, 32)
   @Column({ unique: true })
   login: string;
 
   @IsAlphanumeric()
   @IsDefined()
+  @Length(6, 32)
   @Column()
   password?: string;
 
