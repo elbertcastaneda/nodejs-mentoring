@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
 import ApiController from 'api/_base/apiController';
-import FindAllDto from './dtos/findAllDto';
+import FindAllDto from './dtos/findAll.dto';
 import { UserRepository } from './user.repository';
 
 export default class UsersController extends ApiController {
@@ -22,20 +23,20 @@ export default class UsersController extends ApiController {
 
     const user = await this.repository.getById(id);
 
-    response.json(user);
+    response.status(StatusCodes.OK).json(user);
   }
 
   async getAll({ query }: Request, response: Response) {
     const filters: FindAllDto = query;
     const users = await this.repository.findAll(filters);
 
-    response.json(users);
+    return response.status(StatusCodes.OK).json(users);
   }
 
   async add(request: Request, response: Response) {
     const user = await this.repository.save(request.body);
 
-    response.status(201).json(user);
+    response.status(StatusCodes.CREATED).json(user);
   }
 
   async update(request: Request, response: Response) {
@@ -43,14 +44,14 @@ export default class UsersController extends ApiController {
 
     await this.repository.update(id, request.body);
 
-    response.sendStatus(204);
+    response.sendStatus(StatusCodes.NO_CONTENT);
   }
 
   async delete(request: Request, response: Response) {
     const { id } = request.params;
 
-    this.repository.delete(id);
+    await this.repository.delete(id);
 
-    response.sendStatus(204);
+    response.sendStatus(StatusCodes.NO_CONTENT);
   }
 }

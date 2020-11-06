@@ -2,6 +2,7 @@ import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
+import { StatusCodes } from 'http-status-codes';
 
 import { createConnection } from 'typeorm';
 import { typeOrmConfig } from 'config/typeorm.config';
@@ -37,6 +38,10 @@ const startServer = async (): Promise<void> => {
     ...apiModulesCreators.map((createModule) => createModule()),
   ]);
   app.use(serverErrorHandler);
+
+  app.use((req, res) => {
+    res.status(StatusCodes.NOT_FOUND).json({ message: 'Page not found' });
+  });
 
   // get the unhandled rejection and throw it to another fallback handler we already have.
   process.on('unhandledRejection', (reason: Error) => {

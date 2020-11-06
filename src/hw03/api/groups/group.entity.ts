@@ -14,6 +14,7 @@ import {
   IsDefined,
   IsUUID,
   IsEnum,
+  Length,
   validate,
 } from 'class-validator';
 import { v4 as uuid } from 'uuid';
@@ -33,6 +34,7 @@ export default class Group extends BaseEntity implements IGroup {
 
   @IsDefined()
   @IsAlphanumeric()
+  @Length(4, 64)
   @Column({ unique: true })
   name: string;
 

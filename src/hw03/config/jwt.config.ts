@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { dirname } from 'path';
 import NodeRSA from 'node-rsa';
+import { Algorithm } from 'jsonwebtoken';
 import passportJWT from 'passport-jwt';
 import { logger } from '_utils';
 
@@ -51,7 +52,7 @@ const jwtConfig = {
   maxAge: '365d',
   privateKeyContent,
   secretOrKey: publicKeyContent,
-  signOptions: { algorithm: 'RS256' },
+  signOptions: { algorithm: 'RS256' as Algorithm },
 };
 
 export default jwtConfig;

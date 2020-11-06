@@ -3,7 +3,7 @@ import Group from 'api/groups/group.entity';
 import User from 'api/users/user.entity';
 
 const {
-  TYPEORM_DATABASE = 'ngmp20_h3',
+  TYPEORM_DATABASE = 'ngmp20',
   TYPEORM_HOST = 'localhost',
   TYPEORM_LOGGING = false,
   TYPEORM_PASSWORD = 'changeme',
