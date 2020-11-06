@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
 import ApiController from 'api/_base/apiController';
 import { GroupRepository } from './group.repository';
@@ -24,19 +25,19 @@ export default class GroupsController extends ApiController {
 
     const group = await this.repository.getById(id);
 
-    response.json(group);
+    response.status(StatusCodes.OK).json(group);
   }
 
   async getAll(request: Request, response: Response) {
     const groups = await this.repository.findAll();
 
-    response.json(groups);
+    response.status(StatusCodes.OK).json(groups);
   }
 
   async add(request: Request, response: Response) {
     const group = await this.repository.save(request.body);
 
-    response.status(201).json(group);
+    response.status(StatusCodes.CREATED).json(group);
   }
 
   async update(request: Request, response: Response) {
@@ -44,22 +45,22 @@ export default class GroupsController extends ApiController {
 
     await this.repository.update(id, request.body);
 
-    response.sendStatus(204);
+    response.sendStatus(StatusCodes.NO_CONTENT);
   }
 
   async delete(request: Request, response: Response) {
     const { id } = request.params;
 
-    this.repository.delete(id);
+    await this.repository.delete(id);
 
-    response.sendStatus(204);
+    response.sendStatus(StatusCodes.NO_CONTENT);
   }
 
   async getUsers(request: Request, response: Response) {
     const { id } = request.params;
     const group = await this.repository.getById(id);
 
-    response.status(201).json(group.users);
+    response.status(StatusCodes.OK).json(group.users);
   }
 
   async addUsers(request: Request, response: Response) {
@@ -67,6 +68,6 @@ export default class GroupsController extends ApiController {
     const { userIds } = request.body;
     const group = await this.repository.addUsers(id, userIds);
 
-    response.status(201).json(group);
+    response.status(StatusCodes.CREATED).json(group);
   }
 }

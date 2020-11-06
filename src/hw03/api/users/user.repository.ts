@@ -7,9 +7,10 @@ import {
   In,
 } from 'typeorm';
 import { NotFoundError } from 'errors';
-import FindAllDto from './dtos/findAllDto';
+import FindAllDto from './dtos/findAll.dto';
 import User from './user.entity';
 
+const getNotFoundByLoginMessage = (login: string) => `User with login: '${login}' not found`;
 const getNotFoundByIdMessage = (id: string) => `User with id: '${id}' not found`;
 
 @EntityRepository(User)
@@ -21,6 +22,18 @@ export class UserRepository extends AbstractRepository<User> {
 
     if (!user) {
       throw new NotFoundError(getNotFoundByIdMessage(id));
+    }
+
+    return user;
+  }
+
+  async getByLogin(login: string) {
+    const user = await this.repository.findOne({
+      where: { login, isDeleted: false },
+    });
+
+    if (!user) {
+      throw new NotFoundError(getNotFoundByLoginMessage(login));
     }
 
     return user;
@@ -52,9 +65,15 @@ export class UserRepository extends AbstractRepository<User> {
   }
 
   async delete(id: string) {
+    const user = await this.repository.findOne({ where: { id, isDeleted: false } });
     const deleteResult = new DeleteResult();
 
+    if (!user) {
+      throw new NotFoundError(getNotFoundByIdMessage(id));
+    }
+
     await this.repository.update(id, { isDeleted: true });
+
     deleteResult.affected = 1;
 
     return deleteResult;

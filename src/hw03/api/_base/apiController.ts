@@ -1,9 +1,15 @@
-import { Request, Response, Router } from 'express';
+import {
+  Request,
+  Response,
+  Router,
+  NextFunction,
+} from 'express';
+import passport from 'passport';
 import { logger } from '_utils';
 
 const uuidPatternRE = '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}';
-const prefixApi = '/api';
-const createPath = (prefixPath: string, path = '') => `${prefixApi}/${prefixPath}/${path}`;
+const PREFIX_PATH = '/api';
+export const createPath = (prefixPath: string, path = '') => `${PREFIX_PATH}/${prefixPath}/${path}`;
 
 type RestMethods = 'get' | 'post' | 'put' | 'delete' | 'patch';
 type CallbackRestMethod = (request: Request, response: Response, next?: Function) => Promise<any>;
@@ -34,7 +40,8 @@ export default abstract class ApiController {
 
     this.router[method](
       this.getPath(path2Work),
-      async (req: Request, res: Response, next: Function) => {
+      passport.authenticate('jwt', { session: false }),
+      async (req: Request, res: Response, next: NextFunction) => {
         try {
           await callback.bind(this)(req, res, next);
         } catch (err) {

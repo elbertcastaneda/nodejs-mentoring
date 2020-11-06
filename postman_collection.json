@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "ceca80bc-4597-4994-9c65-71daaa70abcb",
-		"name": "EPAM - Node.js Mentoring (Elbert Homework 2)",
+		"_postman_id": "7ed7009a-b689-4bbe-9096-ac4fbbc2c92f",
+		"name": "EPAM - Node.js Mentoring (Elbert)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -12,14 +12,20 @@
 					"name": "get user by id",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{baseUrl}}users/fb573bb5-e571-4030-bc3d-abfcad2fb209",
+							"raw": "{{baseUrl}}users/734b642f-5a00-4743-a583-fddd77baf0cd",
 							"host": [
 								"{{baseUrl}}users"
 							],
 							"path": [
-								"fb573bb5-e571-4030-bc3d-abfcad2fb209"
+								"734b642f-5a00-4743-a583-fddd77baf0cd"
 							]
 						}
 					},
@@ -29,10 +35,16 @@
 					"name": "create user",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"login\": \"el-castanedaaaaaaa\",\n    \"age\": 35,\n    \"password\": \"software\" \n}",
+							"raw": "{\n    \"login\": \"elcastanedaaaaaaa\",\n    \"age\": 35,\n    \"password\": \"software!!!\" \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -52,10 +64,16 @@
 					"name": "update user",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"login\": \"elbertcastaneda1985\",\n    \"age\": 35,\n    \"password\": \"softwaree12345\"\n}",
+							"raw": "{\n    \"login\": \"elbertcastaneda1985\",\n    \"age\": 36,\n    \"password\": \"softwaree12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -63,12 +81,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}users/ef8b1bab-f17f-4dd4-8b7d-2b0f5294af8a",
+							"raw": "{{baseUrl}}users/369586d4-b71f-4a33-a03c-062357a6a00d",
 							"host": [
 								"{{baseUrl}}users"
 							],
 							"path": [
-								"ef8b1bab-f17f-4dd4-8b7d-2b0f5294af8a"
+								"369586d4-b71f-4a33-a03c-062357a6a00d"
 							]
 						}
 					},
@@ -77,8 +95,17 @@
 				{
 					"name": "get all users",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}users/",
 							"host": [
@@ -95,7 +122,7 @@
 								},
 								{
 									"key": "loginSubstring",
-									"value": "elbert",
+									"value": "elberttt",
 									"disabled": true
 								}
 							]
@@ -107,14 +134,20 @@
 					"name": "delete user",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{baseUrl}}users/82760a04-d524-40b9-9c5a-7cd5487b8dfb",
+							"raw": "{{baseUrl}}users/fedced08-cadf-4535-bc0b-ac454352d803",
 							"host": [
 								"{{baseUrl}}users"
 							],
 							"path": [
-								"82760a04-d524-40b9-9c5a-7cd5487b8dfb"
+								"fedced08-cadf-4535-bc0b-ac454352d803"
 							]
 						}
 					},
@@ -133,7 +166,13 @@
 							"name": "assign users into a group",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT {{token}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\n    \"userIds\": [\n        \"ef8b1bab-f17f-4dd4-8b7d-2b0f5294af8a\",\n        \"201f5cf5-9f2b-4de0-b720-892a9b8c3fda\"\n    ]\n}",
@@ -160,7 +199,13 @@
 							"name": "get users by group",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "JWT {{token}}",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}groups/72dd2720-3828-412c-abe6-21cda2871ccd/users",
 									"host": [
@@ -182,7 +227,13 @@
 					"name": "get group by id",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}groups/72dd2720-3828-412c-abe6-21cda2871ccd",
 							"host": [
@@ -199,7 +250,13 @@
 					"name": "create group",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"writter\",\n    \"permissions\": [\n        \"READ\"\n    ]\n}",
@@ -222,7 +279,13 @@
 					"name": "update group",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"writterr\",\n    \"permissions\": [\"READ\", \"WRITE\", \"DELETE\"]\n}",
@@ -248,7 +311,13 @@
 					"name": "get all groups",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}groups/",
 							"host": [
@@ -272,14 +341,20 @@
 					"name": "delete group",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{baseUrl}}groups/7F643910-72CD-47BC-B78D-A9FAA720E70A",
+							"raw": "{{baseUrl}}groups/beec71ca-96ea-43f9-bc51-e9df1436d211",
 							"host": [
 								"{{baseUrl}}groups"
 							],
 							"path": [
-								"7F643910-72CD-47BC-B78D-A9FAA720E70A"
+								"beec71ca-96ea-43f9-bc51-e9df1436d211"
 							]
 						}
 					},
@@ -287,13 +362,60 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70502f12-db71-401f-9954-e83884393803",
+						"exec": [
+							"pm.environment.set(\"token\", pm.response.json().token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"elbert\",\n    \"password\": \"mainPassword\",\n    \"rememberMe\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}login",
+					"host": [
+						"{{baseUrl}}login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "elbert",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "mainPassword",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "df0422ac-6710-4d97-93fc-c0f57a43a71b",
+				"id": "ecbdbaf9-5058-4fb3-a406-558cd1ba1408",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -303,7 +425,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "8dc9488d-d623-4a1a-882c-2ddacbeeca64",
+				"id": "8da9f408-3605-41d6-a4c1-c5fab7a304b4",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -313,9 +435,14 @@
 	],
 	"variable": [
 		{
-			"id": "4b0d6a8a-8ee2-449c-beac-c10cb040791f",
+			"id": "66322e53-8884-4fbb-802f-d844b1eb25b6",
 			"key": "baseUrl",
 			"value": "http://localhost:5000/api/"
+		},
+		{
+			"id": "6abfde00-dc18-4e76-afa6-cad48607b491",
+			"key": "token",
+			"value": ""
 		}
 	],
 	"protocolProfileBehavior": {}

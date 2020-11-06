@@ -1,17 +1,18 @@
 import { Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
 import { ApiValidationError, BadRequestError, NotFoundError } from 'errors';
 
 const responseNotFoundMessage = (response: Response, message: string) => {
-  response.status(404).json({ message });
+  response.status(StatusCodes.NOT_FOUND).json({ message });
 };
 
 const responseBadRequestMessages = (response: Response, messages: string[]) => {
-  response.status(400).json({ messages });
+  response.status(StatusCodes.BAD_REQUEST).json({ messages });
 };
 
 const responseBadRequestMessage = (response: Response, message: string) => {
-  response.status(400).json({ message });
+  response.status(StatusCodes.BAD_REQUEST).json({ message });
 };
 
 export const isApiError = (ex: Error) => {
@@ -40,7 +41,7 @@ const processApiError = (response: Response, ex: Error) => {
   } else if (ex instanceof NotFoundError) {
     responseNotFoundMessage(response, message);
   } else {
-    response.status(500).json({ message: `Server error: ${message}` });
+    response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: `Server error: ${message}` });
   }
 };
 
