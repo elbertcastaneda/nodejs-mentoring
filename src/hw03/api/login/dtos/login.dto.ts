@@ -1,6 +1,4 @@
-import {
-  IsAlphanumeric, IsBoolean, IsNotEmpty, Length,
-} from 'class-validator';
+import { IsAlphanumeric, IsBoolean, IsNotEmpty, Length } from 'class-validator';
 
 export default class LoginDto {
   @IsAlphanumeric()
@@ -8,7 +6,6 @@ export default class LoginDto {
   @Length(4, 32)
   username = '';
 
-  @IsAlphanumeric()
   @IsNotEmpty()
   @Length(6, 32)
   password = '';

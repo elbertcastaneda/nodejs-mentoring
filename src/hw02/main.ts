@@ -1,11 +1,11 @@
-import express from 'express';
+import { json, urlencoded } from 'express';
 import apiModules from './api';
 
 const main = async (): Promise<void> => {
   const app = express();
 
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.json());
+  app.use(urlencoded({ extended: true }));
+  app.use(json());
   app.use(apiModules);
 
   await app.listen(5000, () => {

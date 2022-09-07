@@ -19,20 +19,20 @@ export interface User {
 export default class UserModel implements User {
   @IsUUID('4')
   @IsDefined()
-  id: string;
+    id: string;
 
   @IsUserAlreadyExist()
   @IsDefined()
-  login: string;
+    login: string;
 
   @IsAlphanumeric()
   @IsDefined()
-  password?: string;
+    password?: string;
 
   @IsDefined()
   @Min(4)
   @Max(130)
-  age?: number;
+    age?: number;
 
   isDeleted = false;
 

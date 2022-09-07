@@ -38,13 +38,12 @@ export default class Group extends BaseEntity implements IGroup {
   @Column({ unique: true })
   name: string;
 
-  @IsEnum(
-    Permissions,
-    {
-      each: true,
-      message: `each value in permissions must be a valid value (${Object.values(Permissions).join('|')})`,
-    },
-  )
+  @IsEnum(Permissions, {
+    each: true,
+    message: `each value in permissions must be a valid value (${Object.values(
+      Permissions
+    ).join('|')})`,
+  })
   @ArrayNotEmpty()
   @Column({
     type: 'simple-array',
@@ -56,7 +55,11 @@ export default class Group extends BaseEntity implements IGroup {
   @JoinTable({ name: 'groups_users' })
   readonly users?: User[];
 
-  constructor(name = '', permissions = [Permissions.Read], id = uuid().toUpperCase()) {
+  constructor(
+    name = '',
+    permissions = [Permissions.Read],
+    id = uuid().toUpperCase()
+  ) {
     super();
 
     this.name = name;

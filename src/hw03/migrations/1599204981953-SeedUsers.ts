@@ -4,10 +4,18 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class SeedUsers1599204981953 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('INSERT INTO "users" (login, password, age) VALUES(\'elbert\', \'mainPassword\', 35)');
-    await queryRunner.query('INSERT INTO "users" (login, password, age) VALUES(\'test.user1\', \'password1\', 19)');
-    await queryRunner.query('INSERT INTO "users" (login, password, age) VALUES(\'test.user2\', \'password2\', 20)');
-    await queryRunner.query('INSERT INTO "users" (login, password, age) VALUES(\'test.user3\', \'password3\', 21)');
+    await queryRunner.query(
+      "INSERT INTO \"users\" (login, password, age) VALUES('elbert', 'mainPassword', 35)"
+    );
+    await queryRunner.query(
+      "INSERT INTO \"users\" (login, password, age) VALUES('test.user1', 'password1', 19)"
+    );
+    await queryRunner.query(
+      "INSERT INTO \"users\" (login, password, age) VALUES('test.user2', 'password2', 20)"
+    );
+    await queryRunner.query(
+      "INSERT INTO \"users\" (login, password, age) VALUES('test.user3', 'password3', 21)"
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

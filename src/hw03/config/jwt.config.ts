@@ -2,14 +2,12 @@ import fs from 'fs';
 import { dirname } from 'path';
 import NodeRSA from 'node-rsa';
 import { Algorithm } from 'jsonwebtoken';
-import passportJWT from 'passport-jwt';
+import { ExtractJwt } from 'passport-jwt';
 import { logger } from '_utils';
 
-const { ExtractJwt } = passportJWT;
-
 interface Keys {
-  privateKeyContent: Buffer,
-  publicKeyContent: Buffer
+  privateKeyContent: Buffer;
+  publicKeyContent: Buffer;
 }
 
 function createPrivateKey(pathPrivateFile: string): Keys {
@@ -40,9 +38,10 @@ function createPrivateKey(pathPrivateFile: string): Keys {
   };
 }
 
-const { privateKeyContent, publicKeyContent } = createPrivateKey('.jwt/server.key');
+const { privateKeyContent, publicKeyContent } =
+  createPrivateKey('.jwt/server.key');
 const issuerHost = process.env.WEBSERVER_VIRTUAL_HOST || 'localhost';
-const issuerPort = process.env.WEBSERVER_PORT || 5000;
+const issuerPort = process.env.WEBSERVER_PORT || 6000;
 logger.debug(`issuer: '${issuerHost}:${issuerPort}'`);
 
 const jwtConfig = {

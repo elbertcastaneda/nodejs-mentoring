@@ -41,7 +41,9 @@ const processApiError = (response: Response, ex: Error) => {
   } else if (ex instanceof NotFoundError) {
     responseNotFoundMessage(response, message);
   } else {
-    response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: `Server error: ${message}` });
+    response
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: `Server error: ${message}` });
   }
 };
 

@@ -1,11 +1,11 @@
-import compression from 'compression';
+import compression, { filter } from 'compression';
 import cors from 'cors';
-import express from 'express';
+import express, { json, urlencoded } from 'express';
 import helmet from 'helmet';
 import { StatusCodes } from 'http-status-codes';
 
 import { createConnection } from 'typeorm';
-import { typeOrmConfig } from 'config/typeorm.config';
+import typeOrmConfig from 'config/typeorm.config';
 import { isApiError, logger } from '_utils';
 import apiModulesCreators from 'api';
 import security from 'security';
@@ -16,20 +16,22 @@ const startServer = async (): Promise<void> => {
 
   app.use(cors());
   app.use(helmet());
-  app.use(compression({
-    filter: (req, res) => {
-      if (req.headers['x-no-compression']) {
-      // don't compress responses with this request header
-        return false;
-      }
+  app.use(
+    compression({
+      filter: (req, res) => {
+        if (req.headers['x-no-compression']) {
+          // don't compress responses with this request header
+          return false;
+        }
 
-      // fallback to standard filter function
-      return compression.filter(req, res);
-    },
-  }));
+        // fallback to standard filter function
+        return filter(req, res);
+      },
+    })
+  );
 
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.json());
+  app.use(urlencoded({ extended: true }));
+  app.use(json());
   app.use(simpleLogger);
   app.use(profiler);
 
@@ -56,18 +58,19 @@ const startServer = async (): Promise<void> => {
     }
   });
 
-  const port = process.env.WEBSERVER_PORT || 5000;
+  const port = process.env.WEBSERVER_PORT || 6000;
 
   await app.listen(port, () => {
     logger.debug(`Server running in: http://localhost:${port}/`);
   });
 };
 
-const main = () => createConnection(typeOrmConfig)
-  .then(async () => {
-    logger.debug('Connected to database.');
-    await startServer();
-  })
-  .catch((error) => logger.fatal('TypeORM connection error: ', error));
+const main = () =>
+  createConnection(typeOrmConfig)
+    .then(async () => {
+      logger.debug('Connected to database.');
+      await startServer();
+    })
+    .catch((error) => logger.fatal('TypeORM connection error: ', error));
 
 export default main;
