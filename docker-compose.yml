@@ -1,38 +1,39 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  pg_ngmp20:
-    container_name: pg_ngmp20_container
-    image: postgres:12-alpine
+  postgres:
+    container_name: postgres_container
+    image: postgres:latest
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
       PGDATA: /data/postgres
     volumes:
-      - pg_ngmp20:/data/postgres
+      - postgres:/data/postgres
     ports:
       - "5432:5432"
     networks:
-      - pg_ngmp20
-    restart: unless-stopped
-  pgadmin_ngmp20:
-    container_name: pgadmin_ngmp20_container
+      - postgres
+    restart: always
+
+  pgadmin:
+    container_name: pgadmin_container
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-elbert.castaneda@gmail.com}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
     volumes:
-      - pgadmin_ngmp20:/var/lib/pgadmin
+      - pgadmin:/var/lib/pgadmin
     ports:
       - "${PGADMIN_PORT:-5050}:80"
     networks:
-      - pg_ngmp20
+      - postgres
     restart: unless-stopped
 
 networks:
-  pg_ngmp20:
+  postgres:
     driver: bridge
 
 volumes:
-    pg_ngmp20:
-    pgadmin_ngmp20:
+    postgres:
+    pgadmin:

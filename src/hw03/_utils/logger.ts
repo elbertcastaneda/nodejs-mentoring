@@ -1,4 +1,4 @@
-import winston from 'winston';
+import winston, { addColors, createLogger, format, transports } from 'winston';
 
 const customLevels = {
   levels: {
@@ -19,37 +19,32 @@ const customLevels = {
   },
 };
 
-const formatter = winston.format.combine(
-  winston.format.colorize(),
-  winston.format.timestamp({ format: 'YYYY-MM-DDTHH:mm:ss' }),
-  winston.format.splat(),
-  winston.format.printf((info) => {
-    const {
-      timestamp,
-      level,
-      message,
-      ...meta
-    } = info;
+const formatter = format.combine(
+  format.colorize(),
+  format.timestamp({ format: 'YYYY-MM-DDTHH:mm:ss' }),
+  format.splat(),
+  format.printf((info) => {
+    const { timestamp, level, message, ...meta } = info;
 
     return `[${timestamp}][${level}]: ${message} ${
       Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ''
     }`;
-  }),
+  })
 );
 
 class Logger {
   private logger: winston.Logger;
 
   constructor() {
-    const transport = new winston.transports.Console({
+    const transport = new transports.Console({
       format: formatter,
     });
-    this.logger = winston.createLogger({
+    this.logger = createLogger({
       level: 'trace',
       levels: customLevels.levels,
       transports: [transport],
     });
-    winston.addColors(customLevels.colors);
+    addColors(customLevels.colors);
   }
 
   setLevel(level: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal') {

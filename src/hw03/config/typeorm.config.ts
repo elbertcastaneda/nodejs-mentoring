@@ -14,7 +14,7 @@ const {
 
 const postgresDatabase: DatabaseType = 'postgres';
 // eslint-disable-next-line import/prefer-default-export
-export const typeOrmConfig = {
+export default {
   database: TYPEORM_DATABASE,
   entities: [Group, User],
   host: TYPEORM_HOST,

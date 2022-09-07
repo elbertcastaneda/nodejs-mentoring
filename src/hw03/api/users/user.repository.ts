@@ -10,8 +10,10 @@ import { NotFoundError } from 'errors';
 import FindAllDto from './dtos/findAll.dto';
 import User from './user.entity';
 
-const getNotFoundByLoginMessage = (login: string) => `User with login: '${login}' not found`;
-const getNotFoundByIdMessage = (id: string) => `User with id: '${id}' not found`;
+const getNotFoundByLoginMessage = (login: string) =>
+  `User with login: '${login}' not found`;
+const getNotFoundByIdMessage = (id: string) =>
+  `User with id: '${id}' not found`;
 
 @EntityRepository(User)
 export class UserRepository extends AbstractRepository<User> {
@@ -65,7 +67,9 @@ export class UserRepository extends AbstractRepository<User> {
   }
 
   async delete(id: string) {
-    const user = await this.repository.findOne({ where: { id, isDeleted: false } });
+    const user = await this.repository.findOne({
+      where: { id, isDeleted: false },
+    });
     const deleteResult = new DeleteResult();
 
     if (!user) {
@@ -92,7 +96,9 @@ export class UserRepository extends AbstractRepository<User> {
   }
 
   async update(id: string, partialEntity: Partial<User>) {
-    const user = await this.repository.findOne({ where: { id, isDeleted: false } });
+    const user = await this.repository.findOne({
+      where: { id, isDeleted: false },
+    });
 
     if (!user) {
       throw new NotFoundError(getNotFoundByIdMessage(id));
