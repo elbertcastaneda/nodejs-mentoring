@@ -8,11 +8,7 @@ const processValidationErrors = (validationErrors: ValidationError[]) => {
         return acc;
       }
 
-      acc.push(
-        ...Object.entries(constraints).map(
-          ([constrain, msg]) => `[${constrain}]: ${msg}`
-        )
-      );
+      acc.push(...Object.entries(constraints).map(([constrain, msg]) => `[${constrain}]: ${msg}`));
 
       return acc;
     }, [] as string[]);

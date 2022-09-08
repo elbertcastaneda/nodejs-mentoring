@@ -67,6 +67,7 @@ export default class User extends BaseEntity implements IUser {
   @BeforeUpdate()
   async validate() {
     const validationErrors = await validate(this);
+    this.id = this.id.toUpperCase();
 
     processValidationErrors(validationErrors);
   }

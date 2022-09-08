@@ -38,8 +38,7 @@ function createPrivateKey(pathPrivateFile: string): Keys {
   };
 }
 
-const { privateKeyContent, publicKeyContent } =
-  createPrivateKey('.jwt/server.key');
+const { privateKeyContent, publicKeyContent } = createPrivateKey('.jwt/server.key');
 const issuerHost = process.env.WEBSERVER_VIRTUAL_HOST || 'localhost';
 const issuerPort = process.env.WEBSERVER_PORT || 6000;
 logger.debug(`issuer: '${issuerHost}:${issuerPort}'`);

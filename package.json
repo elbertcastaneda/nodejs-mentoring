@@ -11,7 +11,7 @@
     "hw02:start": "nodemon --watch 'src/hw02' --ext 'ts,json' --exec 'ts-node -r tsconfig-paths/register --project tsconfig.hw02.json' src/hw02/index.ts",
     "lint": "eslint . --ext '.js,.ts'",
     "start": "nodemon --watch 'src/hw03' --ext 'ts,json' --exec 'ts-node -r tsconfig-paths/register --project tsconfig.json' src/hw03/index.ts",
-    "typeorm-cli": "ts-node --project tsconfig.json -r tsconfig-paths/register node_modules/.bin/typeorm --config src/hw03/ormconfig.env",
+    "typeorm-cli": "ts-node --project tsconfig.json -r tsconfig-paths/register node_modules/.bin/typeorm -d src/hw03/config/typeorm.config.ts",
     "db:create:schema": "cross-env TYPEORM_DATABASE=postgres yarn run typeorm-cli query 'CREATE DATABASE ngmp20;'",
     "db:drop:schema": "cross-env TYPEORM_DATABASE=postgres yarn run typeorm-cli query 'DROP DATABASE ngmp20;'",
     "db:migration:create": "yarn run typeorm-cli migration:create -n",
@@ -50,7 +50,7 @@
     "passport-jwt": "^4.0.0",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.29",
+    "typeorm": "^0.3.29",
     "uuid": "^9.0.0",
     "winston": "^3.8.1"
   },

@@ -2,9 +2,7 @@
 /* eslint-disable import/prefer-default-export */
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class AddGroupsUsersTableManyToMany1600566489651
-  implements MigrationInterface
-{
+export class AddGroupsUsersTableManyToMany1600566489651 implements MigrationInterface {
   name = 'AddGroupsUsersTableManyToMany1600566489651';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

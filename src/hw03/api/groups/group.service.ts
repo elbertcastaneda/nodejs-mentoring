@@ -1,20 +1,27 @@
-import {
-  AbstractRepository,
-  EntityRepository,
-  getCustomRepository,
-} from 'typeorm';
 import { BadRequestError, NotFoundError } from 'errors';
-import createUserRepository from 'api/users/user.repository';
+
+import BaseService from 'api/_base/baseService';
+import UserService from 'api/users/user.service';
 
 import Group from './group.entity';
 
-const getNotFoundByIdMessage = (id: string) =>
-  `Group with id: '${id}' not found`;
+const getNotFoundByIdMessage = (id: string) => `Group with id: '${id}' not found`;
 
-@EntityRepository(Group)
-export class GroupRepository extends AbstractRepository<Group> {
+export default class GroupService extends BaseService<Group> {
+  private static instance: GroupService;
+
+  public static create() {
+    GroupService.instance = GroupService.instance || new GroupService();
+
+    return GroupService.instance;
+  }
+
+  constructor() {
+    super(Group);
+  }
+
   async getById(id: string) {
-    const group = await this.repository.findOne(id, { relations: ['users'] });
+    const group = await this.repository.findOne({ relations: ['users'], where: { id } });
 
     if (!group) {
       throw new NotFoundError(getNotFoundByIdMessage(id));
@@ -63,25 +70,19 @@ export class GroupRepository extends AbstractRepository<Group> {
 
   async addUsers(id: string, userIds: string[]) {
     const group = await this.getById(id);
-    const usersRepository = createUserRepository();
-    const users = await usersRepository.findByIds(userIds);
+    const userService = UserService.create();
+    const users = await userService.findByIds(userIds);
 
     if (users.length !== userIds.length) {
-      throw new BadRequestError(
-        'Some or all users received does not exist in the system'
-      );
+      throw new BadRequestError('Some or all users received does not exist in the system');
     }
 
     if (!group.users) {
-      throw new BadRequestError(
-        'Users collection is necessary in the group to add user to it'
-      );
+      throw new BadRequestError('Users collection is necessary in the group to add user to it');
     }
 
     const currentUserIds = group.users.map((cu) => cu.id);
-    const notAssignedUsers = users.filter(
-      (uf) => !currentUserIds.includes(uf.id)
-    );
+    const notAssignedUsers = users.filter((uf) => !currentUserIds.includes(uf.id));
 
     if (!notAssignedUsers.length) {
       return group.users;
@@ -94,7 +95,3 @@ export class GroupRepository extends AbstractRepository<Group> {
     return savedGroup.users;
   }
 }
-
-const createGroupRepository = () => getCustomRepository(GroupRepository);
-
-export default createGroupRepository;

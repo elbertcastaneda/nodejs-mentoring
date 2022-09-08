@@ -2,18 +2,12 @@ import { Request, Response, Router, NextFunction } from 'express';
 import passport from 'passport';
 import { logger } from '_utils';
 
-const uuidPatternRE =
-  '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}';
+const uuidPatternRE = '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}';
 const PREFIX_PATH = '/api';
-export const createPath = (prefixPath: string, path = '') =>
-  `${PREFIX_PATH}/${prefixPath}/${path}`;
+export const createPath = (prefixPath: string, path = '') => `${PREFIX_PATH}/${prefixPath}/${path}`;
 
 type RestMethods = 'get' | 'post' | 'put' | 'delete' | 'patch';
-type CallbackRestMethod = (
-  request: Request,
-  response: Response,
-  next?: Function
-) => Promise<any>;
+type CallbackRestMethod = (request: Request, response: Response, next?: Function) => Promise<any>;
 type CreateMethodOptions = { method: RestMethods; path?: string };
 
 export default abstract class ApiController {
@@ -36,10 +30,7 @@ export default abstract class ApiController {
     this.createMethod({ method: 'delete', path: ':uuid' }, this.delete);
   }
 
-  protected createMethod(
-    { method, path = '' }: CreateMethodOptions,
-    callback: CallbackRestMethod
-  ) {
+  protected createMethod({ method, path = '' }: CreateMethodOptions, callback: CallbackRestMethod) {
     const path2Work = path.replace(':uuid', `:id(${uuidPatternRE})`);
 
     this.router[method](
@@ -72,35 +63,15 @@ export default abstract class ApiController {
     return createPath(this.subPath, path);
   }
 
-  abstract getById(
-    request: Request,
-    response: Response,
-    next?: Function
-  ): Promise<any>;
+  abstract getById(request: Request, response: Response, next?: Function): Promise<any>;
 
-  abstract getAll(
-    request: Request,
-    response: Response,
-    next?: Function
-  ): Promise<any>;
+  abstract getAll(request: Request, response: Response, next?: Function): Promise<any>;
 
-  abstract add(
-    request: Request,
-    response: Response,
-    next?: Function
-  ): Promise<any>;
+  abstract add(request: Request, response: Response, next?: Function): Promise<any>;
 
-  abstract update(
-    request: Request,
-    response: Response,
-    next?: Function
-  ): Promise<any>;
+  abstract update(request: Request, response: Response, next?: Function): Promise<any>;
 
-  abstract delete(
-    request: Request,
-    response: Response,
-    next?: Function
-  ): Promise<any>;
+  abstract delete(request: Request, response: Response, next?: Function): Promise<any>;
 
   getRouter() {
     return this.router;

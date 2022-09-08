@@ -1,22 +1,28 @@
-import {
-  AbstractRepository,
-  EntityRepository,
-  DeleteResult,
-  getCustomRepository,
-  Like,
-  In,
-} from 'typeorm';
+import { DeleteResult, Like, In } from 'typeorm';
 import { NotFoundError } from 'errors';
+
+import BaseService from 'api/_base/baseService';
+
 import FindAllDto from './dtos/findAll.dto';
+
 import User from './user.entity';
 
-const getNotFoundByLoginMessage = (login: string) =>
-  `User with login: '${login}' not found`;
-const getNotFoundByIdMessage = (id: string) =>
-  `User with id: '${id}' not found`;
+const getNotFoundByLoginMessage = (login: string) => `User with login: '${login}' not found`;
+const getNotFoundByIdMessage = (id: string) => `User with id: '${id}' not found`;
 
-@EntityRepository(User)
-export class UserRepository extends AbstractRepository<User> {
+export default class UserService extends BaseService<User> {
+  private static instance: UserService;
+
+  public static create() {
+    UserService.instance = UserService.instance || new UserService();
+
+    return UserService.instance;
+  }
+
+  constructor() {
+    super(User);
+  }
+
   async getById(id: string) {
     const user = await this.repository.findOne({
       where: { id, isDeleted: false },
@@ -113,7 +119,3 @@ export class UserRepository extends AbstractRepository<User> {
     return result;
   }
 }
-
-const createUserRepository = () => getCustomRepository(UserRepository);
-
-export default createUserRepository;

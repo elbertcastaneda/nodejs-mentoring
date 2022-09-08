@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import passport from 'passport';
 import { Strategy as JwtStrategy } from 'passport-jwt';
-import createUserRepository from 'api/users/user.repository';
+import UserService from 'api/users/user.service';
 import { logger } from '_utils';
 import jwtConfig from 'config/jwt.config';
 
 const securityRouter = Router();
 
 const strategy = new JwtStrategy(jwtConfig, (payload, next) => {
-  const users = createUserRepository();
+  const users = UserService.create();
 
   logger.debug(`Validating JWT payload: ${payload.sub}`);
   if (payload.sub) {

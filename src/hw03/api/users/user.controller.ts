@@ -3,38 +3,38 @@ import { StatusCodes } from 'http-status-codes';
 
 import ApiController from 'api/_base/apiController';
 import FindAllDto from './dtos/findAll.dto';
-import { UserRepository } from './user.repository';
+import type UserService from './user.service';
 
 export default class UsersController extends ApiController {
-  private repository: UserRepository;
+  private service: UserService;
 
-  static create(repository: UserRepository) {
-    return new UsersController(repository);
+  static create(service: UserService) {
+    return new UsersController(service);
   }
 
-  constructor(repository: UserRepository) {
+  constructor(service: UserService) {
     super('users');
 
-    this.repository = repository;
+    this.service = service;
   }
 
   async getById(request: Request, response: Response) {
     const { id } = request.params;
 
-    const user = await this.repository.getById(id);
+    const user = await this.service.getById(id);
 
     response.status(StatusCodes.OK).json(user);
   }
 
   async getAll({ query }: Request, response: Response) {
     const filters: FindAllDto = query;
-    const users = await this.repository.findAll(filters);
+    const users = await this.service.findAll(filters);
 
     return response.status(StatusCodes.OK).json(users);
   }
 
   async add(request: Request, response: Response) {
-    const user = await this.repository.save(request.body);
+    const user = await this.service.save(request.body);
 
     response.status(StatusCodes.CREATED).json(user);
   }
@@ -42,7 +42,7 @@ export default class UsersController extends ApiController {
   async update(request: Request, response: Response) {
     const { id } = request.params;
 
-    await this.repository.update(id, request.body);
+    await this.service.update(id, request.body);
 
     response.sendStatus(StatusCodes.NO_CONTENT);
   }
@@ -50,7 +50,7 @@ export default class UsersController extends ApiController {
   async delete(request: Request, response: Response) {
     const { id } = request.params;
 
-    await this.repository.delete(id);
+    await this.service.delete(id);
 
     response.sendStatus(StatusCodes.NO_CONTENT);
   }
