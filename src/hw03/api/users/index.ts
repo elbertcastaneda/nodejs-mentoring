@@ -1,8 +1,7 @@
 import UserController from './user.controller';
-import createUserRepository from './user.repository';
+import UserService from './user.service';
 
 // Simple Dependency injection simulation
-const createUsersModule = () =>
-  UserController.create(createUserRepository()).getRouter();
+const createUsersModule = () => UserController.create(UserService.create()).getRouter();
 
 export default createUsersModule;

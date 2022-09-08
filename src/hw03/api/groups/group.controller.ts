@@ -1,20 +1,20 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
+import type GroupService from 'api/groups/group.service';
+
 import ApiController from 'api/_base/apiController';
-import { GroupRepository } from './group.repository';
-
 export default class GroupsController extends ApiController {
-  private repository: GroupRepository;
+  private service: GroupService;
 
-  static create(repository: GroupRepository) {
-    return new GroupsController(repository);
+  static create(service: GroupService) {
+    return new GroupsController(service);
   }
 
-  constructor(repository: GroupRepository) {
+  constructor(service: GroupService) {
     super('groups');
 
-    this.repository = repository;
+    this.service = service;
 
     this.createMethod({ method: 'get', path: ':uuid/users' }, this.getUsers);
     this.createMethod({ method: 'post', path: ':uuid/users' }, this.addUsers);
@@ -23,19 +23,19 @@ export default class GroupsController extends ApiController {
   async getById(request: Request, response: Response) {
     const { id } = request.params;
 
-    const group = await this.repository.getById(id);
+    const group = await this.service.getById(id);
 
     response.status(StatusCodes.OK).json(group);
   }
 
   async getAll(request: Request, response: Response) {
-    const groups = await this.repository.findAll();
+    const groups = await this.service.findAll();
 
     response.status(StatusCodes.OK).json(groups);
   }
 
   async add(request: Request, response: Response) {
-    const group = await this.repository.save(request.body);
+    const group = await this.service.save(request.body);
 
     response.status(StatusCodes.CREATED).json(group);
   }
@@ -43,7 +43,7 @@ export default class GroupsController extends ApiController {
   async update(request: Request, response: Response) {
     const { id } = request.params;
 
-    await this.repository.update(id, request.body);
+    await this.service.update(id, request.body);
 
     response.sendStatus(StatusCodes.NO_CONTENT);
   }
@@ -51,14 +51,14 @@ export default class GroupsController extends ApiController {
   async delete(request: Request, response: Response) {
     const { id } = request.params;
 
-    await this.repository.delete(id);
+    await this.service.delete(id);
 
     response.sendStatus(StatusCodes.NO_CONTENT);
   }
 
   async getUsers(request: Request, response: Response) {
     const { id } = request.params;
-    const group = await this.repository.getById(id);
+    const group = await this.service.getById(id);
 
     response.status(StatusCodes.OK).json(group.users);
   }
@@ -66,7 +66,7 @@ export default class GroupsController extends ApiController {
   async addUsers(request: Request, response: Response) {
     const { id } = request.params;
     const { userIds } = request.body;
-    const group = await this.repository.addUsers(id, userIds);
+    const group = await this.service.addUsers(id, userIds);
 
     response.status(StatusCodes.CREATED).json(group);
   }

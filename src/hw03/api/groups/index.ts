@@ -1,8 +1,7 @@
 import GroupController from './group.controller';
-import createGroupRepository from './group.repository';
+import GroupService from './group.service';
 
 // Simple Dependency injection simulation
-const createGroupModule = () =>
-  GroupController.create(createGroupRepository()).getRouter();
+const createGroupModule = () => GroupController.create(GroupService.create()).getRouter();
 
 export default createGroupModule;

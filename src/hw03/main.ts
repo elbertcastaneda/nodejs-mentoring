@@ -4,8 +4,7 @@ import express, { json, urlencoded } from 'express';
 import helmet from 'helmet';
 import { StatusCodes } from 'http-status-codes';
 
-import { createConnection } from 'typeorm';
-import typeOrmConfig from 'config/typeorm.config';
+import dataSource from 'config/typeorm.config';
 import { isApiError, logger } from '_utils';
 import apiModulesCreators from 'api';
 import security from 'security';
@@ -35,10 +34,7 @@ const startServer = async (): Promise<void> => {
   app.use(simpleLogger);
   app.use(profiler);
 
-  app.use([
-    security,
-    ...apiModulesCreators.map((createModule) => createModule()),
-  ]);
+  app.use([security, ...apiModulesCreators.map((createModule) => createModule())]);
   app.use(serverErrorHandler);
 
   app.use((req, res) => {
@@ -66,9 +62,11 @@ const startServer = async (): Promise<void> => {
 };
 
 const main = () =>
-  createConnection(typeOrmConfig)
+  dataSource
+    .initialize()
     .then(async () => {
       logger.debug('Connected to database.');
+
       await startServer();
     })
     .catch((error) => logger.fatal('TypeORM connection error: ', error));

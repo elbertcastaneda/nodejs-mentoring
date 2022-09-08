@@ -1,4 +1,5 @@
-import { DatabaseType } from 'typeorm';
+import 'reflect-metadata';
+import { DatabaseType, DataSource } from 'typeorm';
 import Group from 'api/groups/group.entity';
 import User from 'api/users/user.entity';
 
@@ -13,17 +14,17 @@ const {
 } = process.env;
 
 const postgresDatabase: DatabaseType = 'postgres';
-// eslint-disable-next-line import/prefer-default-export
-export default {
+
+export default new DataSource({
+  name: 'default',
   database: TYPEORM_DATABASE,
   entities: [Group, User],
   host: TYPEORM_HOST,
-  keepConnectionAlive: true,
   logging: Boolean(TYPEORM_LOGGING),
-  migrations: [],
+  migrations: [__dirname + '/../migrations/*.ts'],
   password: TYPEORM_PASSWORD,
   port: Number(TYPEORM_PORT),
   synchronize: Boolean(TYPEORM_SYNCHRONIZE),
   type: postgresDatabase,
   username: TYPEORM_USERNAME,
-};
+});
