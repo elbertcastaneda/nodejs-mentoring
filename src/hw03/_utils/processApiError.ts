@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { ApiValidationError, BadRequestError, NotFoundError } from 'errors';
+import { ApiValidationError, BadRequestError, NotFoundError, UnauthorizedUserError } from 'errors';
 
 const responseNotFoundMessage = (response: Response, message: string) => {
   response.status(StatusCodes.NOT_FOUND).json({ message });
@@ -13,6 +13,10 @@ const responseBadRequestMessages = (response: Response, messages: string[]) => {
 
 const responseBadRequestMessage = (response: Response, message: string) => {
   response.status(StatusCodes.BAD_REQUEST).json({ message });
+};
+
+const responseUnAuthorizedMessage = (response: Response, message: string) => {
+  response.status(StatusCodes.UNAUTHORIZED).json({ message });
 };
 
 export const isApiError = (ex: Error) => {
@@ -40,6 +44,8 @@ const processApiError = (response: Response, ex: Error) => {
     responseBadRequestMessage(response, message);
   } else if (ex instanceof NotFoundError) {
     responseNotFoundMessage(response, message);
+  } else if (ex instanceof UnauthorizedUserError) {
+    responseUnAuthorizedMessage(response, message);
   } else {
     response
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
