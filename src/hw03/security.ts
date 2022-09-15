@@ -2,31 +2,36 @@ import { Router } from 'express';
 import passport from 'passport';
 import { Strategy as JwtStrategy } from 'passport-jwt';
 import UserService from 'api/users/user.service';
-import { logger } from '_utils';
-import jwtConfig from 'config/jwt.config';
+import getJwtConfig, { Keys } from 'config/jwt.config';
+import { UnauthorizedUserError } from 'errors';
 
-const securityRouter = Router();
+const createSecurityRouter = (keys: Keys) => {
+  const securityRouter = Router();
+  const strategy = new JwtStrategy(getJwtConfig(keys), (payload, next) => {
+    const users = UserService.create();
 
-const strategy = new JwtStrategy(jwtConfig, (payload, next) => {
-  const users = UserService.create();
+    if (payload.sub) {
+      users.getById(payload.sub).then(
+        (user) => {
+          if (user) {
+            next(null, user);
+          } else {
+            next(null, false);
+          }
+        },
+        () => {
+          next(new UnauthorizedUserError('Unauthorized token'), false);
+        }
+      );
+    } else {
+      next(new UnauthorizedUserError('Unauthorized token'), false);
+    }
+  });
 
-  logger.debug(`Validating JWT payload: ${payload.sub}`);
-  if (payload.sub) {
-    logger.debug(`Validated JWT payload: ${payload.sub}`);
-    users.getById(payload.sub).then((user) => {
-      logger.debug(`Validated JWT: user founded: ${user.id}`);
-      if (user) {
-        next(null, user);
-      } else {
-        next(null, false);
-      }
-    });
-  } else {
-    logger.error('Unauthorized token');
-    next(null, false);
-  }
-});
-passport.use(strategy);
-securityRouter.use(passport.initialize());
+  passport.use(strategy);
+  securityRouter.use(passport.initialize());
 
-export default securityRouter;
+  return securityRouter;
+};
+
+export default createSecurityRouter;

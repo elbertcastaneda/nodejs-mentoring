@@ -1,3 +1,4 @@
+import { UnauthorizedUserError } from 'errors';
 import { Request, Response, Router, NextFunction } from 'express';
 import passport from 'passport';
 import { logger } from '_utils';
@@ -9,6 +10,23 @@ export const createPath = (prefixPath: string, path = '') => `${PREFIX_PATH}/${p
 type RestMethods = 'get' | 'post' | 'put' | 'delete' | 'patch';
 type CallbackRestMethod = (request: Request, response: Response, next?: Function) => Promise<any>;
 type CreateMethodOptions = { method: RestMethods; path?: string };
+
+function authenticateJwt(req: Request, res: Response, next: NextFunction) {
+  passport.authenticate('jwt', { session: false }, function (err, user, info) {
+    if (err) {
+      return next(err);
+    }
+
+    if (!user) {
+      logger.error(info.message);
+
+      throw new UnauthorizedUserError();
+    }
+
+    req.user = user;
+    next();
+  })(req, res, next);
+}
 
 export default abstract class ApiController {
   private subPath: string;
@@ -35,7 +53,7 @@ export default abstract class ApiController {
 
     this.router[method](
       this.getPath(path2Work),
-      passport.authenticate('jwt', { session: false }),
+      authenticateJwt,
       async (req: Request, res: Response, next: NextFunction) => {
         try {
           await callback.bind(this)(req, res, next);

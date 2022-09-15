@@ -7,10 +7,11 @@ import { StatusCodes } from 'http-status-codes';
 import dataSource from 'config/typeorm.config';
 import { isApiError, logger } from '_utils';
 import apiModulesCreators from 'api';
-import security from 'security';
+import createSecurityRouter from 'security';
 import { profiler, serverErrorHandler, simpleLogger } from './middlewares';
+import { Keys } from 'config/jwt.config';
 
-const startServer = async (): Promise<void> => {
+const startServer = async (keys: Keys): Promise<void> => {
   const app = express();
 
   app.use(cors());
@@ -34,7 +35,10 @@ const startServer = async (): Promise<void> => {
   app.use(simpleLogger);
   app.use(profiler);
 
-  app.use([security, ...apiModulesCreators.map((createModule) => createModule())]);
+  app.use([
+    createSecurityRouter(keys),
+    ...apiModulesCreators.map((createModule) => createModule(keys)),
+  ]);
   app.use(serverErrorHandler);
 
   app.use((req, res) => {
@@ -61,13 +65,13 @@ const startServer = async (): Promise<void> => {
   });
 };
 
-const main = () =>
+const main = (keys: Keys) =>
   dataSource
     .initialize()
     .then(async () => {
       logger.debug('Connected to database.');
 
-      await startServer();
+      await startServer(keys);
     })
     .catch((error) => logger.fatal('TypeORM connection error: ', error));
 
