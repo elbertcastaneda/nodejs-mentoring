@@ -24,9 +24,9 @@ const createLoginModule = (keys: Keys) => {
 
       const { username, password, rememberMe } = loginData;
       const userService = UserService.create();
-      const user = await userService.getByLogin(username);
+      const user = await userService.findByLogin(username, true);
 
-      if (user && user.password === password) {
+      if (user && user.comparePassword(password)) {
         const now = moment();
         const issuerHost = process.env.WEBSERVER_VIRTUAL_HOST || 'localhost';
         const issuerPort = process.env.WEBSERVER_PORT || 6000;

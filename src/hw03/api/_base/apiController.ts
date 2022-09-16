@@ -28,14 +28,17 @@ function authenticateJwt(req: Request, res: Response, next: NextFunction) {
   })(req, res, next);
 }
 
-export default abstract class ApiController {
+export default abstract class ApiController<Service> {
   private subPath: string;
 
   private router: Router;
 
-  constructor(subPath: string) {
+  protected service: Service;
+
+  constructor(subPath: string, service: Service) {
     this.subPath = subPath;
     this.router = Router();
+    this.service = service;
 
     this.initialize();
   }

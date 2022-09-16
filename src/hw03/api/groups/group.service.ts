@@ -4,6 +4,7 @@ import BaseService from 'api/_base/baseService';
 import UserService from 'api/users/user.service';
 
 import Group from './group.entity';
+import User from 'api/users/user.entity';
 
 const getNotFoundByIdMessage = (id: string) => `Group with id: '${id}' not found`;
 
@@ -20,7 +21,7 @@ export default class GroupService extends BaseService<Group> {
     super(Group);
   }
 
-  async getById(id: string) {
+  async findById(id: string) {
     const group = await this.repository.findOne({ relations: ['users'], where: { id } });
 
     if (!group) {
@@ -36,40 +37,36 @@ export default class GroupService extends BaseService<Group> {
     return groups;
   }
 
-  async delete(id: string) {
-    const result = await this.repository.delete(id);
+  async delete(id: string, authUser: User) {
+    const group = await this.findById(id);
 
-    if (!result.affected) {
-      throw new NotFoundError(getNotFoundByIdMessage(id));
-    }
+    const result = await this.repository.softRemove(group, { data: authUser });
 
     return result;
   }
 
-  async save(partialEntity: Partial<Group>) {
+  async save(partialEntity: Partial<Group>, authUser: User) {
     const group = new Group();
 
     group.name = partialEntity.name || group.name;
     group.permissions = partialEntity.permissions || group.permissions;
 
-    const savedGroup = await this.repository.save(group);
+    const savedGroup = await this.repository.save(group, { data: authUser });
 
     return savedGroup;
   }
 
-  async update(id: string, partialEntity: Partial<Group>) {
-    const group = await this.getById(id);
+  async update(id: string, partialEntity: Partial<Group>, authUser: User) {
+    const group = await this.findById(id);
 
     group.name = partialEntity.name || group.name;
     group.permissions = partialEntity.permissions || group.permissions;
 
-    const savedGroup = await this.repository.save(group);
-
-    return savedGroup;
+    this.repository.save(group, { data: authUser });
   }
 
-  async addUsers(id: string, userIds: string[]) {
-    const group = await this.getById(id);
+  async addUsers(id: string, userIds: string[], authUser: User) {
+    const group = await this.findById(id);
     const userService = UserService.create();
     const users = await userService.findByIds(userIds);
 
@@ -90,7 +87,7 @@ export default class GroupService extends BaseService<Group> {
 
     group.users.push(...notAssignedUsers);
 
-    const savedGroup = await this.repository.save(group);
+    const savedGroup = await this.repository.save(group, { data: authUser });
 
     return savedGroup.users;
   }

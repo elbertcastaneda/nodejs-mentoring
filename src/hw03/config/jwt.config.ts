@@ -58,6 +58,12 @@ export const readPrivateKey = async (pathPrivateFile: string): Promise<Keys> => 
   };
 };
 
+export const createAndReadPrivateKey = async (pathPrivateFile: string): Promise<Keys> => {
+  await createPrivateKey(pathPrivateFile);
+
+  return readPrivateKey(pathPrivateFile);
+};
+
 const getJwtConfig = (keys: Keys) => {
   const { privateKeyContent, publicKeyContent } = keys;
 

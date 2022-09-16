@@ -1,7 +1,14 @@
 import { Response } from 'express';
+import { QueryFailedError } from 'typeorm';
+
 import { StatusCodes } from 'http-status-codes';
 
 import { ApiValidationError, BadRequestError, NotFoundError, UnauthorizedUserError } from 'errors';
+
+interface QueryFailedErrorDetailed extends QueryFailedError {
+  code: string;
+  detail: string;
+}
 
 const responseNotFoundMessage = (response: Response, message: string) => {
   response.status(StatusCodes.NOT_FOUND).json({ message });
@@ -32,6 +39,14 @@ export const isApiError = (ex: Error) => {
     return true;
   }
 
+  if (ex instanceof UnauthorizedUserError) {
+    return true;
+  }
+
+  if (ex instanceof QueryFailedError) {
+    return true;
+  }
+
   return false;
 };
 
@@ -46,6 +61,14 @@ const processApiError = (response: Response, ex: Error) => {
     responseNotFoundMessage(response, message);
   } else if (ex instanceof UnauthorizedUserError) {
     responseUnAuthorizedMessage(response, message);
+  } else if (ex instanceof QueryFailedError) {
+    const error = ex as QueryFailedErrorDetailed;
+
+    if (error.code === '23505') {
+      responseBadRequestMessage(response, error.detail);
+    } else {
+      responseBadRequestMessage(response, message);
+    }
   } else {
     response
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
