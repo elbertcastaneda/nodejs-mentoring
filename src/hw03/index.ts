@@ -2,22 +2,31 @@ import cluster, { Worker } from 'cluster';
 import { cpus } from 'os';
 import process from 'process';
 
-import { createPrivateKey, readPrivateKey } from 'config/jwt.config';
+import { createPrivateKey, createAndReadPrivateKey, readPrivateKey } from 'config/jwt.config';
 import main from './main';
 
-if (cluster.isPrimary) {
+const keysPath = '.jwt/server.key';
+const isProduction = process.env.NODE_ENV === 'production';
+
+if (cluster.isPrimary && isProduction) {
   const numCPUs = cpus().length;
   const workers: Worker[] = [];
 
   console.log(`Primary ${process.pid} is running`);
 
-  createPrivateKey('.jwt/server.key').then(() => {
+  createPrivateKey(keysPath).then(() => {
     for (let i = 0; i < numCPUs; i++) {
       workers.push(cluster.fork());
     }
   });
 } else {
-  readPrivateKey('.jwt/server.key').then((keys) => {
-    main(keys);
-  });
+  if (isProduction) {
+    readPrivateKey(keysPath).then((keys) => {
+      main(keys);
+    });
+  } else {
+    createAndReadPrivateKey(keysPath).then((keys) => {
+      main(keys);
+    });
+  }
 }

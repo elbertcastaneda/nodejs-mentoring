@@ -11,7 +11,7 @@ const createSecurityRouter = (keys: Keys) => {
     const users = UserService.create();
 
     if (payload.sub) {
-      users.getById(payload.sub).then(
+      users.findById(payload.sub).then(
         (user) => {
           if (user) {
             next(null, user);

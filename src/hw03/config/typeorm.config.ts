@@ -1,7 +1,5 @@
 import 'reflect-metadata';
 import { DatabaseType, DataSource } from 'typeorm';
-import Group from 'api/groups/group.entity';
-import User from 'api/users/user.entity';
 
 const {
   TYPEORM_DATABASE = 'ngmp20',
@@ -18,12 +16,13 @@ const postgresDatabase: DatabaseType = 'postgres';
 export default new DataSource({
   name: 'default',
   database: TYPEORM_DATABASE,
-  entities: [Group, User],
+  entities: [__dirname + '/../**/*.entity.ts'],
   host: TYPEORM_HOST,
   logging: Boolean(TYPEORM_LOGGING),
   migrations: [__dirname + '/../migrations/*.ts'],
   password: TYPEORM_PASSWORD,
   port: Number(TYPEORM_PORT),
+  subscribers: [__dirname + '/../**/*.subscriber.ts'],
   synchronize: Boolean(TYPEORM_SYNCHRONIZE),
   type: postgresDatabase,
   username: TYPEORM_USERNAME,

@@ -2,11 +2,15 @@ import {
   BaseEntity,
   BeforeInsert,
   BeforeUpdate,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   Column,
   ManyToMany,
   JoinTable,
+  UpdateDateColumn,
+  VersionColumn,
 } from 'typeorm';
 import {
   ArrayNotEmpty,
@@ -35,7 +39,7 @@ export default class Group extends BaseEntity implements IGroup {
   @IsDefined()
   @IsAlphanumeric()
   @Length(4, 64)
-  @Column({ unique: true })
+  @Column({ unique: true, length: 64 })
   name: string;
 
   @IsEnum(Permissions, {
@@ -50,6 +54,24 @@ export default class Group extends BaseEntity implements IGroup {
     default: [Permissions.Read] as Permissions[],
   })
   permissions: Permissions[];
+
+  @CreateDateColumn()
+  createdAt?: Date;
+
+  @Column()
+  createdByUserId?: string;
+
+  @UpdateDateColumn()
+  updatedAt?: Date;
+
+  @Column()
+  updatedByUserId?: string;
+
+  @DeleteDateColumn({ nullable: true, select: false })
+  deletedAt?: Date;
+
+  @VersionColumn()
+  version?: number;
 
   @ManyToMany(() => User, (user) => user.groups, { cascade: true })
   @JoinTable({ name: 'groups_users' })

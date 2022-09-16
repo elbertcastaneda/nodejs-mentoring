@@ -11,13 +11,14 @@
     "hw02:start": "nodemon --watch 'src/hw02' --ext 'ts,json' --exec 'ts-node -r tsconfig-paths/register --project tsconfig.hw02.json' src/hw02/index.ts",
     "lint": "eslint . --ext '.js,.ts'",
     "start": "nodemon --watch 'src/hw03' --ext 'ts,json' --exec 'ts-node -r tsconfig-paths/register --project tsconfig.json' src/hw03/index.ts",
-    "typeorm-cli": "ts-node --project tsconfig.json -r tsconfig-paths/register node_modules/.bin/typeorm -d src/hw03/config/typeorm.config.ts",
-    "db:create:schema": "cross-env TYPEORM_DATABASE=postgres yarn run typeorm-cli query 'CREATE DATABASE ngmp20;'",
-    "db:drop:schema": "cross-env TYPEORM_DATABASE=postgres yarn run typeorm-cli query 'DROP DATABASE ngmp20;'",
-    "db:migration:create": "yarn run typeorm-cli migration:create -n",
-    "db:migration:generate": "yarn run typeorm-cli migration:generate -n",
-    "db:migration:revert": "yarn run typeorm-cli migration:revert",
-    "db:migration:run": "yarn run typeorm-cli migration:run"
+    "start:debug": "nodemon --watch --inspect=5858 'src/hw03' --ext 'ts,json' --exec 'ts-node -r tsconfig-paths/register --project tsconfig.json' src/hw03/index.ts",
+    "typeorm-cli": "ts-node --project tsconfig.json -r tsconfig-paths/register node_modules/.bin/typeorm",
+    "db:create:schema": "cross-env TYPEORM_DATABASE=postgres yarn run typeorm-cli -d src/hw03/config/typeorm.config.ts query 'CREATE DATABASE ngmp20;'",
+    "db:drop:schema": "cross-env TYPEORM_DATABASE=postgres yarn run typeorm-cli -d src/hw03/config/typeorm.config.ts query 'DROP DATABASE ngmp20;'",
+    "db:migration:create": "yarn run typeorm-cli migration:create",
+    "db:migration:generate": "yarn run typeorm-cli migration:generate -d src/hw03/config/typeorm.config.ts",
+    "db:migration:revert": "yarn run typeorm-cli migration:revert -d src/hw03/config/typeorm.config.ts",
+    "db:migration:run": "yarn run typeorm-cli migration:run -d src/hw03/config/typeorm.config.ts"
   },
   "repository": {
     "type": "git",

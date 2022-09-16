@@ -1,4 +1,4 @@
-import { DeleteResult, Like, In } from 'typeorm';
+import { Like, In, FindOptionsSelectByString } from 'typeorm';
 import { NotFoundError } from 'errors';
 
 import BaseService from 'api/_base/baseService';
@@ -9,6 +9,13 @@ import User from './user.entity';
 
 const getNotFoundByLoginMessage = (login: string) => `User with login: '${login}' not found`;
 const getNotFoundByIdMessage = (id: string) => `User with id: '${id}' not found`;
+
+const getFieldsWithoutPassword = (includePassword: boolean = false) =>
+  includePassword
+    ? undefined
+    : (Object.getOwnPropertyNames(new User()).filter(
+        (field) => !['password', 'salt'].includes(field)
+      ) as FindOptionsSelectByString<User>);
 
 export default class UserService extends BaseService<User> {
   private static instance: UserService;
@@ -23,9 +30,12 @@ export default class UserService extends BaseService<User> {
     super(User);
   }
 
-  async getById(id: string) {
+  async findById(id: string, includePassword = false) {
+    const select = getFieldsWithoutPassword(includePassword);
+
     const user = await this.repository.findOne({
-      where: { id, isDeleted: false },
+      select,
+      where: { id },
     });
 
     if (!user) {
@@ -35,9 +45,12 @@ export default class UserService extends BaseService<User> {
     return user;
   }
 
-  async getByLogin(login: string) {
+  async findByLogin(login: string, includePassword = false) {
+    const select = getFieldsWithoutPassword(includePassword);
+
     const user = await this.repository.findOne({
-      where: { login, isDeleted: false },
+      select,
+      where: { login },
     });
 
     if (!user) {
@@ -48,74 +61,59 @@ export default class UserService extends BaseService<User> {
   }
 
   async findAll({ loginSubstring, limit = 50 }: FindAllDto) {
+    const select = getFieldsWithoutPassword();
+
     const users = await this.repository.find({
+      order: { login: 'ASC' },
+      select: select,
+      take: limit,
       where: {
         ...(loginSubstring ? { login: Like(`%${loginSubstring}%`) } : {}),
-        isDeleted: false,
       },
-      order: { login: 'ASC' },
-      take: limit,
     });
 
     return users;
   }
 
   async findByIds(ids: string[]) {
+    const select = getFieldsWithoutPassword();
+
     const users = await this.repository.find({
+      order: { login: 'ASC' },
+      select,
       where: {
         id: In(ids),
-        isDeleted: false,
       },
-      order: { login: 'ASC' },
     });
 
     return users;
   }
 
-  async delete(id: string) {
-    const user = await this.repository.findOne({
-      where: { id, isDeleted: false },
-    });
-    const deleteResult = new DeleteResult();
+  async delete(id: string, authUser: User) {
+    const user = await this.findById(id);
 
-    if (!user) {
-      throw new NotFoundError(getNotFoundByIdMessage(id));
-    }
-
-    await this.repository.update(id, { isDeleted: true });
-
-    deleteResult.affected = 1;
-
-    return deleteResult;
+    return this.repository.softRemove(user, { data: authUser });
   }
 
-  async save(partialEntity: Partial<User>) {
+  async save(partialEntity: Partial<User>, authUser: User) {
     const user = new User();
 
-    user.login = partialEntity.login || user.login;
-    user.password = partialEntity.password;
-    user.age = partialEntity.age;
+    user.login = partialEntity.login!;
+    user.password = partialEntity.password!;
+    user.age = partialEntity.age!;
 
-    const result = await this.repository.save(user);
+    const savedUser = await this.repository.save(user, { data: authUser });
 
-    return result;
+    return this.findById(savedUser.id);
   }
 
-  async update(id: string, partialEntity: Partial<User>) {
-    const user = await this.repository.findOne({
-      where: { id, isDeleted: false },
-    });
-
-    if (!user) {
-      throw new NotFoundError(getNotFoundByIdMessage(id));
-    }
+  async update(id: string, partialEntity: Partial<User>, authUser: User) {
+    const user = await this.findById(id, true);
 
     user.login = partialEntity.login || user.login;
     user.password = partialEntity.password || user.password;
     user.age = partialEntity.age || user.age;
 
-    const result = await this.repository.save(user);
-
-    return result;
+    this.repository.save(user, { data: authUser });
   }
 }
