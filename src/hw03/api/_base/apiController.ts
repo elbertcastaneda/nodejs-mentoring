@@ -8,7 +8,11 @@ const PREFIX_PATH = '/api';
 export const createPath = (prefixPath: string, path = '') => `${PREFIX_PATH}/${prefixPath}/${path}`;
 
 type RestMethods = 'get' | 'post' | 'put' | 'delete' | 'patch';
-type CallbackRestMethod = (request: Request, response: Response, next?: Function) => Promise<any>;
+type CallbackRestMethod = (
+  request: Request,
+  response: Response,
+  next?: () => void
+) => Promise<unknown>;
 type CreateMethodOptions = { method: RestMethods; path?: string };
 
 function authenticateJwt(req: Request, res: Response, next: NextFunction) {
@@ -80,19 +84,19 @@ export default abstract class ApiController<Service> {
     );
   }
 
-  protected getPath(path: string = '') {
+  protected getPath(path = '') {
     return createPath(this.subPath, path);
   }
 
-  abstract getById(request: Request, response: Response, next?: Function): Promise<any>;
+  abstract getById(request: Request, response: Response, next?: () => void): Promise<unknown>;
 
-  abstract getAll(request: Request, response: Response, next?: Function): Promise<any>;
+  abstract getAll(request: Request, response: Response, next?: () => void): Promise<unknown>;
 
-  abstract add(request: Request, response: Response, next?: Function): Promise<any>;
+  abstract add(request: Request, response: Response, next?: () => void): Promise<unknown>;
 
-  abstract update(request: Request, response: Response, next?: Function): Promise<any>;
+  abstract update(request: Request, response: Response, next?: () => void): Promise<unknown>;
 
-  abstract delete(request: Request, response: Response, next?: Function): Promise<any>;
+  abstract delete(request: Request, response: Response, next?: () => void): Promise<unknown>;
 
   getRouter() {
     return this.router;

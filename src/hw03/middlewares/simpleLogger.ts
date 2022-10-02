@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-const simpleLogger = (req: Request, res: Response, next: Function) => {
+const simpleLogger = (req: Request, res: Response, next: () => void) => {
   console.log(
     `method: ${req.path}(${req.method}), query: ${JSON.stringify(
       req.query

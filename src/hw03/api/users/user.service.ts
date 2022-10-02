@@ -10,7 +10,7 @@ import User from './user.entity';
 const getNotFoundByLoginMessage = (login: string) => `User with login: '${login}' not found`;
 const getNotFoundByIdMessage = (id: string) => `User with id: '${id}' not found`;
 
-const getFieldsWithoutPassword = (includePassword: boolean = false) =>
+const getFieldsWithoutPassword = (includePassword = false) =>
   includePassword
     ? undefined
     : (Object.getOwnPropertyNames(new User()).filter(
@@ -95,12 +95,12 @@ export default class UserService extends BaseService<User> {
     return this.repository.softRemove(user, { data: authUser });
   }
 
-  async save(partialEntity: Partial<User>, authUser: User) {
+  async save(userData: Partial<User>, authUser: User) {
     const user = new User();
 
-    user.login = partialEntity.login!;
-    user.password = partialEntity.password!;
-    user.age = partialEntity.age!;
+    user.login = userData.login || '';
+    user.password = userData.password;
+    user.age = userData.age;
 
     const savedUser = await this.repository.save(user, { data: authUser });
 

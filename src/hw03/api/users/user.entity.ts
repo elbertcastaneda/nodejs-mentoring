@@ -1,7 +1,5 @@
 import {
   BaseEntity,
-  BeforeInsert,
-  BeforeUpdate,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -16,31 +14,35 @@ import {
   IsAlphanumeric,
   IsDefined,
   IsInt,
+  IsNotEmpty,
   IsUUID,
   Max,
   Min,
   Length,
-  validate,
 } from 'class-validator';
 import { v4 as uuid } from 'uuid';
-import { processValidationErrors } from '~/_utils';
 import Group from '~/api/groups/group.entity';
 import IUser from './user.type';
 import { compareHash } from '~/_utils/crypto';
 
 @Entity({ name: 'users' })
 export default class User extends BaseEntity implements IUser {
+  @IsNotEmpty()
   @IsUUID('4')
-  @IsDefined()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @IsAlphanumeric()
-  @IsDefined()
+  @IsNotEmpty()
   @Length(4, 32)
   @Column({ unique: true, length: 32 })
   login: string;
 
+  @IsNotEmpty()
+  @Length(64, 64, {
+    message:
+      'The password is always a SHA256 hash and is generated with the field salt automatically',
+  })
   @Column({ length: 64 })
   password?: string = undefined;
 
@@ -49,7 +51,7 @@ export default class User extends BaseEntity implements IUser {
 
   @IsDefined()
   @IsInt()
-  @Min(4)
+  @Min(1)
   @Max(130)
   @Column()
   age?: number = undefined;
@@ -83,16 +85,11 @@ export default class User extends BaseEntity implements IUser {
     this.id = id;
   }
 
-  @BeforeInsert()
-  @BeforeUpdate()
-  async validate() {
-    const validationErrors = await validate(this);
-    this.id = this.id.toUpperCase();
-
-    processValidationErrors(validationErrors);
-  }
-
   comparePassword(password: string): boolean {
-    return compareHash(password, { hash: this.password!, salt: this.salt! });
+    if (!this.password || !this.salt) {
+      return false;
+    }
+
+    return compareHash(password, { hash: this.password as string, salt: this.salt as string });
   }
 }

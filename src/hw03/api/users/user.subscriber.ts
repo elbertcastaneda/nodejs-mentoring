@@ -1,5 +1,7 @@
 import { EntitySubscriberInterface, EventSubscriber, InsertEvent, UpdateEvent } from 'typeorm';
+import { validate } from 'class-validator';
 
+import { processValidationErrors } from '~/_utils';
 import { generateHash } from '~/_utils/crypto';
 
 import User from './user.entity';
@@ -13,25 +15,39 @@ export default class UserSubscriber implements EntitySubscriberInterface<User> {
     return User;
   }
 
+  async validate(user: User) {
+    const validationErrors = await validate(user);
+
+    processValidationErrors(validationErrors);
+  }
+
   /**
    * Called before user insertion.
    */
-  beforeInsert(event: InsertEvent<User>): void | Promise<any> {
-    const password = generateHash(event.entity.password!);
+  async beforeInsert(event: InsertEvent<User>) {
+    if (event.entity.password) {
+      const password = generateHash(event.entity.password as string);
 
-    event.entity.password = password.hash;
-    event.entity.salt = password.salt;
+      event.entity.password = password.hash;
+      event.entity.salt = password.salt;
+    }
+
+    await this.validate(event.entity);
   }
 
   /**
    * Called before user update.
    */
-  beforeUpdate(event: UpdateEvent<User>): void | Promise<any> {
-    if (event.entity && event.databaseEntity.password !== event.entity.password) {
-      const password = generateHash(event.entity?.password!);
+  async beforeUpdate(event: UpdateEvent<User>) {
+    if (event.entity) {
+      if (event.databaseEntity.password !== event.entity.password) {
+        const password = generateHash(event.entity.password as string);
 
-      event.entity.password = password.hash;
-      event.entity.salt = password.salt;
+        event.entity.password = password.hash;
+        event.entity.salt = password.salt;
+      }
+
+      await this.validate(event.entity as User);
     }
   }
 }

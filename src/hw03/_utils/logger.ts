@@ -51,28 +51,28 @@ class Logger {
     this.logger.level = level;
   }
 
-  trace(msg: any, meta?: any) {
-    this.logger.log('trace', msg, meta);
+  trace(msg: string, ...meta: unknown[]) {
+    this.logger.log('trace', msg, ...meta);
   }
 
-  debug(msg: any, meta?: any) {
-    this.logger.debug(msg, meta);
+  debug(msg: string, ...meta: unknown[]) {
+    this.logger.debug(msg, ...meta);
   }
 
-  info(msg: any, meta?: any) {
-    this.logger.info(msg, meta);
+  info(msg: string, ...meta: unknown[]) {
+    this.logger.info(msg, ...meta);
   }
 
-  warn(msg: any, meta?: any) {
-    this.logger.warn(msg, meta);
+  warn(msg: string, ...meta: unknown[]) {
+    this.logger.warn(msg, ...meta);
   }
 
-  error(msg: any, meta?: any) {
-    this.logger.error(msg, meta);
+  error(msg: string, ...meta: unknown[]) {
+    this.logger.error(msg, ...meta);
   }
 
-  fatal(msg: any, meta?: any) {
-    this.logger.log('fatal', msg, meta);
+  fatal(msg: string, ...meta: unknown[]) {
+    this.logger.log('fatal', msg, ...meta);
   }
 }
 
