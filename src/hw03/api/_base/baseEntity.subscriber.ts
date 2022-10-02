@@ -5,11 +5,12 @@ import {
   InsertEvent,
   UpdateEvent,
 } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
 import User from '~/api/users/user.entity';
 import { AuthUserNotFound } from '~/errors';
 
-import MyBaseEntity from './MyBaseEntity';
+import type MyBaseEntity from './MyBaseEntity';
 
 const instanceOfMyBaseEntity = (entity: BaseEntity) =>
   'id' in entity &&
@@ -32,12 +33,13 @@ export default class BaseEntitySubscriber implements EntitySubscriberInterface {
       return;
     }
 
-    const entity = event.entity as MyBaseEntity;
+    const entity = event.entity as unknown as MyBaseEntity;
     const user = event.queryRunner.data as User;
 
     entity.createdByUserId = user.id;
     entity.updatedByUserId = user.id;
-    // entity.id = entity.id.toUpperCase();
+
+    entity.id = entity.id || uuid().toUpperCase();
   }
 
   /**
@@ -60,7 +62,7 @@ export default class BaseEntitySubscriber implements EntitySubscriberInterface {
     }
 
     const entity = event.entity as MyBaseEntity;
-    const dbEntity = event.databaseEntity as MyBaseEntity;
+    const dbEntity = event.databaseEntity as unknown as MyBaseEntity;
     const user = event.queryRunner.data as User;
 
     entity.createdByUserId = dbEntity.createdByUserId;
