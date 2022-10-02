@@ -1,11 +1,11 @@
 import { EntitySubscriberInterface, EventSubscriber, InsertEvent, UpdateEvent } from 'typeorm';
-import { logger } from '_utils';
-import User from 'api/users/user.entity';
+import { logger } from '~/_utils';
+import User from '~/api/users/user.entity';
 import MyBaseEntity from './MyBaseEntity';
-import { AuthUserNotFound } from 'errors';
+import { AuthUserNotFound } from '~/errors';
 
 @EventSubscriber()
-export class BaseEntitySubscriber implements EntitySubscriberInterface {
+export default class BaseEntitySubscriber implements EntitySubscriberInterface {
   /**
    * Called before post insertion.
    */

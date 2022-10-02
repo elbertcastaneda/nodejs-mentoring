@@ -23,10 +23,10 @@ import {
   validate,
 } from 'class-validator';
 import { v4 as uuid } from 'uuid';
-import { processValidationErrors } from '_utils';
-import Group from 'api/groups/group.entity';
+import { processValidationErrors } from '~/_utils';
+import Group from '~/api/groups/group.entity';
 import IUser from './user.type';
-import { compareHash } from '_utils/crypto';
+import { compareHash } from '~/_utils/crypto';
 
 @Entity({ name: 'users' })
 export default class User extends BaseEntity implements IUser {

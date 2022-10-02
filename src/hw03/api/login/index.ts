@@ -4,11 +4,11 @@ import { sign } from 'jsonwebtoken';
 import { validate } from 'class-validator';
 import moment from 'moment';
 
-import getJwtConfig, { Keys } from 'config/jwt.config';
-import UserService from 'api/users/user.service';
-import { createPath } from 'api/_base/apiController';
-import { processValidationErrors } from '_utils';
-import { UnauthorizedUserError } from 'errors';
+import getJwtConfig, { Keys } from '~/config/jwt.config';
+import UserService from '~/api/users/user.service';
+import { createPath } from '~/api/_base/apiController';
+import { processValidationErrors } from '~/_utils';
+import { UnauthorizedUserError } from '~/errors';
 
 import LoginDto from './dtos/login.dto';
 

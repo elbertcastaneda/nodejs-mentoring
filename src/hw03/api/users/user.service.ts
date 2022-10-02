@@ -1,7 +1,7 @@
 import { Like, In, FindOptionsSelectByString } from 'typeorm';
-import { NotFoundError } from 'errors';
+import { NotFoundError } from '~/errors';
 
-import BaseService from 'api/_base/baseService';
+import BaseService from '~/api/_base/baseService';
 
 import FindAllDto from './dtos/findAll.dto';
 
