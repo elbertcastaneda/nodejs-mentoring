@@ -9,7 +9,6 @@ export enum Permissions {
 }
 
 export default interface Group extends MyBaseEntity {
-  id: string;
   name: string;
   permissions: Permissions[];
 }
