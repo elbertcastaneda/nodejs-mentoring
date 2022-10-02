@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "outDir": "./build",
+    "outDir": "./dist/hw03",
   },
   "include": ["./src/hw03/*"]
 }
