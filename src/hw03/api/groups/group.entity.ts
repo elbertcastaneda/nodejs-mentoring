@@ -23,9 +23,9 @@ import {
 } from 'class-validator';
 import { v4 as uuid } from 'uuid';
 
-import { processValidationErrors } from '_utils';
+import { processValidationErrors } from '~/_utils';
 
-import User from 'api/users/user.entity';
+import User from '~/api/users/user.entity';
 
 import IGroup, { Permissions } from './group.type';
 

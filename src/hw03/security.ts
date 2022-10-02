@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import passport from 'passport';
 import { Strategy as JwtStrategy } from 'passport-jwt';
-import UserService from 'api/users/user.service';
-import getJwtConfig, { Keys } from 'config/jwt.config';
-import { UnauthorizedUserError } from 'errors';
+
+import UserService from '~/api/users/user.service';
+import getJwtConfig, { Keys } from '~/config/jwt.config';
+import { UnauthorizedUserError } from '~/errors';
 
 const createSecurityRouter = (keys: Keys) => {
   const securityRouter = Router();

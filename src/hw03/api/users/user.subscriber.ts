@@ -1,6 +1,6 @@
 import { EntitySubscriberInterface, EventSubscriber, InsertEvent, UpdateEvent } from 'typeorm';
 
-import { generateHash } from '_utils/crypto';
+import { generateHash } from '~/_utils/crypto';
 
 import User from './user.entity';
 

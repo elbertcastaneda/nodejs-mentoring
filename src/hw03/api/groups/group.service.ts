@@ -1,10 +1,10 @@
-import { BadRequestError, NotFoundError } from 'errors';
+import { BadRequestError, NotFoundError } from '~/errors';
 
-import BaseService from 'api/_base/baseService';
-import UserService from 'api/users/user.service';
+import BaseService from '~/api/_base/baseService';
+import UserService from '~/api/users/user.service';
 
 import Group from './group.entity';
-import User from 'api/users/user.entity';
+import User from '~/api/users/user.entity';
 
 const getNotFoundByIdMessage = (id: string) => `Group with id: '${id}' not found`;
 

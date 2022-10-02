@@ -3,7 +3,7 @@ import { dirname } from 'path';
 import NodeRSA from 'node-rsa';
 import { Algorithm } from 'jsonwebtoken';
 import { ExtractJwt } from 'passport-jwt';
-import { logger } from '_utils';
+import { logger } from '~/_utils';
 
 const issuerHost = process.env.WEBSERVER_VIRTUAL_HOST || 'localhost';
 const issuerPort = process.env.WEBSERVER_PORT || 6000;

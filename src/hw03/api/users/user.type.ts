@@ -1,4 +1,4 @@
-import MyBaseEntity from 'api/_base/MyBaseEntity';
+import MyBaseEntity from '~/api/_base/MyBaseEntity';
 
 export default interface User extends MyBaseEntity {
   id: string;

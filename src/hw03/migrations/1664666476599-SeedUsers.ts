@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { generateHash } from '_utils/crypto';
+import { generateHash } from '~/_utils/crypto';
 
-export class SeedUsers1663301230226 implements MigrationInterface {
+export class SeedUsers1664666476599 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const elbertHash = generateHash('mainPassword');
     await queryRunner.query(

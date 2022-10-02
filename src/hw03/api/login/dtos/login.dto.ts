@@ -7,7 +7,7 @@ export default class LoginDto {
   username = '';
 
   @IsNotEmpty()
-  @Length(6, 32)
+  @Length(4, 32)
   password = '';
 
   @IsBoolean()

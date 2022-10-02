@@ -1,5 +1,5 @@
 import type { EntityTarget, Repository, ObjectLiteral } from 'typeorm';
-import dataSource from 'config/typeorm.config';
+import dataSource from '~/config/typeorm.config';
 
 export default abstract class BaseService<Entity extends ObjectLiteral> {
   protected repository: Repository<Entity>;

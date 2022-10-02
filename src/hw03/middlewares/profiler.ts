@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { logger } from '_utils';
+import { logger } from '~/_utils';
 
 const profiler = (req: Request, res: Response, next: Function) => {
   const start = Date.now();

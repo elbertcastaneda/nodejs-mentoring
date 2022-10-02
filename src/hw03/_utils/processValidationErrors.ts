@@ -1,5 +1,5 @@
 import { ValidationError } from 'class-validator';
-import { ApiValidationError } from 'errors';
+import { ApiValidationError } from '~/errors';
 
 const processValidationErrors = (validationErrors: ValidationError[]) => {
   if (validationErrors.length > 0) {

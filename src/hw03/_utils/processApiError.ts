@@ -3,7 +3,7 @@ import { QueryFailedError } from 'typeorm';
 
 import { StatusCodes } from 'http-status-codes';
 
-import { ApiValidationError, BadRequestError, NotFoundError, UnauthorizedUserError } from 'errors';
+import { ApiValidationError, BadRequestError, NotFoundError, UnauthorizedUserError } from '~/errors';
 
 interface QueryFailedErrorDetailed extends QueryFailedError {
   code: string;

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import type GroupService from 'api/groups/group.service';
+import type GroupService from '~/api/groups/group.service';
 
-import ApiController from 'api/_base/apiController';
-import User from 'api/users/user.entity';
+import ApiController from '~/api/_base/apiController';
+import User from '~/api/users/user.entity';
 
 export default class GroupsController extends ApiController<GroupService> {
   static create(service: GroupService) {
