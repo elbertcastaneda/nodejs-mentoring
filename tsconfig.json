@@ -18,6 +18,6 @@
       "~/*": ["./src/hw03/*"]
     }
   },
-  "include": ["src/", ".eslintrc.js"],
+  "include": ["src/", ".eslintrc.js", "webpack.config.js"],
   "exclude": ["node_modules", "csv", "build"]
 }
