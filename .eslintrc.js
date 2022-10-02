@@ -7,15 +7,13 @@ module.exports = {
     'airbnb-typescript/base',
     'plugin:import/recommended',
     'plugin:import/typescript',
+    'plugin:@typescript-eslint/recommended',
+    // 'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:prettier/recommended',
     'prettier',
   ],
   plugins: ['import', 'prettier'],
-  rules: {
-    'import/extensions': 'off',
-    'import/no-extraneous-dependencies': 'off',
-    '@typescript-eslint/indent': 'off',
-  },
+  rules: {},
   parserOptions: {
     project: ['./tsconfig.json'],
     sourceType: 'module',

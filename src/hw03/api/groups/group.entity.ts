@@ -15,7 +15,7 @@ import {
 import {
   ArrayNotEmpty,
   IsAlphanumeric,
-  IsDefined,
+  IsNotEmpty,
   IsUUID,
   IsEnum,
   Length,
@@ -32,11 +32,11 @@ import IGroup, { Permissions } from './group.type';
 @Entity({ name: 'groups' })
 export default class Group extends BaseEntity implements IGroup {
   @IsUUID('4')
-  @IsDefined()
+  @IsNotEmpty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @IsDefined()
+  @IsNotEmpty()
   @IsAlphanumeric()
   @Length(4, 64)
   @Column({ unique: true, length: 64 })

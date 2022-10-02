@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { logger } from '~/_utils';
 
-const profiler = (req: Request, res: Response, next: Function) => {
+const profiler = (req: Request, res: Response, next: () => void) => {
   const start = Date.now();
   res.once('finish', () => {
     const elapsedMS = Date.now() - start;
