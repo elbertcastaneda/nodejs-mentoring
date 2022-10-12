@@ -13,7 +13,14 @@ module.exports = {
     'prettier',
   ],
   plugins: ['import', 'prettier'],
-  rules: {},
+  rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
+  },
   parserOptions: {
     project: ['./tsconfig.json'],
     sourceType: 'module',
