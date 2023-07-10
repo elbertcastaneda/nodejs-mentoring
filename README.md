@@ -1,8 +1,8 @@
-# NodeJS Global Mentoring Program 2020Q3 - Homeworks
+# NodeJS Mentoring Program
 
 ## Prerequisites
 
-We need to to install NodeJS or `nvm` if you prefer:
+We need to install NodeJS or `nvm` if you prefer:
 
 - [Node.js](https://nodejs.org/en/)
 
@@ -10,33 +10,33 @@ We need to to install NodeJS or `nvm` if you prefer:
 
 ## Homeworks source code index
 
-| Homework |    Folder     |                       Git Branch                                |
-|:--------:|:--------------|-----------------------------------------------------------------|
-|    01    |  **src/hw01** | homework/01-basics-nodejs-fundamental-theory                    |
-|    02    |  **src/hw02** | homework/02-in-memory-crud-rest-service-with-validation         |
-|  03, 04  |  **src/hw03** | homework/03-postgres-sequelize                                  |
-|    05    |  **src/hw03** | homework/05-logging-error-handling                              |
-|    06    |  **src/hw03** | homework/06-jwt-authorization-and-cors, master                  |
+| Module   |       Folder      |                       Git Branch                                  |
+|:--------:|:------------------|-------------------------------------------------------------------|
+|    01    |  **src/module01** | module/01-basics-nodejs-fundamental-theory                        |
+|    02    |  **src/module02** | module/02-in-memory-crud-rest-service-with-validation             |
+|  03, 04  |  **src/module03** | module/03-postgres-sequelize                                      |
+|    05    |  **src/module03** | module/05-logging-error-handling                                  |
+|    06    |  **src/module03** | module/06-jwt-authorization-and-cors, main                        |
 
 ---
 ---
 
 ## Getting Started
 
-Follow next instructions to be able to clone this project and run it locally.
+Follow these instructions to be able to clone this project and run it locally.
 
 ### Clone the repository
 
-```console
-git clone https://github.com/elbertcastaneda/nodejs-epam-hw-tasks
+```bash
+git clone https://github.com/elbertcastaneda/nodejs-mentoring
 ```
 
 ---
 
-### Go to project folder
+### Go to the project folder
 
-```console
-cd nodejs-epam-hw-tasks
+```bash
+cd nodejs-mentoring
 ```
 
 ---
@@ -44,13 +44,9 @@ cd nodejs-epam-hw-tasks
 ### Install dependencies:
 
 With `npm`:
-```console
-npm install
-```
 
-With `yarn`:
-```console
-yarn install
+```bash
+npm install
 ```
 
 ---
@@ -58,25 +54,19 @@ yarn install
 
 ### Run tasks:
 
-#### **Homework 03, 04, 05 and 06**
+#### Module 03, 04, 05 and 06
 
-- I implemented `TypeScript`.
-- I implemented `eslint-airbnb` and `eslint-airbnb-typescript` to avoid problems with `TypeScript` and `eslint`.
-- I implemented `TypeORM` instead of `Sequelize` in my opinion works better with TypeScript
-- I decided to used another structure for the files, I am using a very similar structure then NestJS.
+- Implement `TypeScript`.
+- Implement `eslint-airbnb` and `eslint-airbnb-typescript` to implement a code styling standard in a fast way
+- Implement `TypeORM`
 
-- If you have docker installed, you can install `postgres` with: `docker-compose up -d --build`, you can remove the docker containers with: `docker-compose down`
-- If you installed `postgres` you can create the database with `yarn run db:create:schema && yarn run db:migration:run`, and you can remove `yarn run db:drop:schema`
+- If you have docker installed, you can install `postgres` with: `docker-compose up -d --build`, and you can remove the docker containers with: `docker-compose down`
+- If you installed `postgres` you can create the database with `npm run db:create:schema && npm run db:migration:run`, and you can remove `npm run db:drop:schema`
 
 With `npm`:
-```console
+
+```bash
 npm run start
-```
-
-With `yarn`:
-
-```console
-yarn start
 ```
 
 Simple Documentation on:
@@ -85,39 +75,25 @@ Simple Documentation on:
 
 ---
 
-#### **Homework 02**
+#### Module 02
 
-- I implemented `TypeScript`.
-- I implemented `eslint-airbnb` and `eslint-airbnb-typescript` to avoid problems with `TypeScript` and `eslint`.
-- I decided to use `class-validator` instead of `joi`/`joi-validation` because in my experience the annotations are a more elegant solution for `TypeScript`.
+- Implement `TypeScript`.
+- Implement `eslint-airbnb` and `eslint-airbnb-typescript` to implement a code styling standard in a fast way
 
 With `npm`:
-```console
-npm run hw02:start
-```
 
-With `yarn`:
-
-```console
-yarn hw02:start
+```bash
+npm run mdl02:start
 ```
 
 ---
 
-#### **Homework 01**
+#### Module 01
 
 With `npm`:
-```console
-npm run hw01:task1
-npm run hw01:task2
-npm run hw01:task1:babel
-npm run hw01:task2:babel
-```
-
-With `yarn`:
-```console
-yarn hw01:task1
-yarn hw01:task2
-yarn hw01:task1:babel
-yarn hw01:task2:babel
+```bash
+npm run mdl01:task1
+npm run mdl01:task2
+npm run mdl01:task1:babel
+npm run mdl01:task2:babel
 ```
