@@ -3,6 +3,7 @@ import { dirname } from 'path';
 import NodeRSA from 'node-rsa';
 import { Algorithm } from 'jsonwebtoken';
 import { ExtractJwt } from 'passport-jwt';
+
 import { logger } from '~/_utils';
 
 const issuerHost = process.env.WEBSERVER_VIRTUAL_HOST || 'localhost';
@@ -34,9 +35,11 @@ export const createPrivateKey = async (pathPrivateFile: string): Promise<void> =
 
     await fs.mkdir(pathPrivate, { recursive: true });
     await fs.writeFile(pathPrivateFile, createPrivate);
+
     const createPublic = key.exportKey('public');
 
     await fs.writeFile(pathPublicFile, createPublic);
+
     logger.info(`Keys: ${pathPrivateFile} and .pub created`);
   }
 };

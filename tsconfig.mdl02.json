@@ -13,7 +13,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noEmit": true,
-    "baseUrl": "./src/hw02",
+    "baseUrl": "./src/module02",
     "outDir": "./build",
     "rootDir": "./",
     "paths": {}
