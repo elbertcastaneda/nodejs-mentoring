@@ -10,14 +10,14 @@ import { createPath } from '~/api/_base/apiController';
 import { processValidationErrors } from '~/_utils';
 import { UnauthorizedUserError } from '~/errors';
 
-import LoginDto from './dtos/login.dto';
+import Login from './dtos/login.dto';
 
 const createLoginModule = (keys: Keys) => {
   const login = Router();
 
   login.post(createPath('login'), async ({ body }, response, next: NextFunction) => {
     try {
-      const loginData = Object.assign(new LoginDto(), body) as LoginDto;
+      const loginData = Object.assign(new Login(), body) as Login;
       const validationErrors = await validate(loginData);
 
       processValidationErrors(validationErrors);

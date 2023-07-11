@@ -11,7 +11,7 @@ import BaseEntitySubscriber from '~/api/_base/baseEntity.subscriber';
 import UserSubscriber from '~/api/users/user.subscriber';
 
 const {
-  TYPEORM_DATABASE = 'ngmp20',
+  TYPEORM_DATABASE = 'nmp',
   TYPEORM_HOST = 'localhost',
   TYPEORM_LOGGING = false,
   TYPEORM_PASSWORD = 'changeme',

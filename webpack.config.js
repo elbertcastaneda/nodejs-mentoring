@@ -2,7 +2,7 @@ const nodeExternals = require('webpack-node-externals');
 const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin');
 
 const basePackage = {
-  name: 'epam-hw03',
+  name: 'nmp',
   version: '0.0.1',
   bin: './index.js',
   main: './index.js',
@@ -31,7 +31,7 @@ const common = {
 };
 
 const backend = {
-  entry: ['./dist/hw03/index.js'],
+  entry: ['./dist/module03/index.js'],
   output: {
     filename: './index.js',
   },

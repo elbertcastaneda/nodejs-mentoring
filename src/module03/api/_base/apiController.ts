@@ -1,7 +1,9 @@
-import { UnauthorizedUserError } from '~/errors';
 import { Request, Response, Router, NextFunction } from 'express';
 import passport from 'passport';
+
 import { logger } from '~/_utils';
+import User from '~/api/users/user.type';
+import { UnauthorizedUserError } from '~/errors';
 
 const uuidPatternRE = '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}';
 const PREFIX_PATH = '/api';
@@ -15,8 +17,12 @@ type CallbackRestMethod = (
 ) => Promise<unknown>;
 type CreateMethodOptions = { method: RestMethods; path?: string };
 
+type Info = {
+  message: string;
+};
+
 function authenticateJwt(req: Request, res: Response, next: NextFunction) {
-  passport.authenticate('jwt', { session: false }, function (err, user, info) {
+  passport.authenticate('jwt', { session: false }, function (err: Error, user: User, info: Info) {
     if (err) {
       return next(err);
     }
