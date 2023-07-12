@@ -1,6 +1,6 @@
 import { BadRequestError, NotFoundError } from '~/errors';
 
-import BaseService from '~/api/_base/baseService';
+import BaseService from '~/api/_base/base-service';
 import UserService from '~/api/users/user.service';
 
 import Group from './group.entity';

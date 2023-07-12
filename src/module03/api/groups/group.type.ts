@@ -1,4 +1,4 @@
-import MyBaseEntity from '~/api/_base/MyBaseEntity';
+import MyBaseEntity from '~/api/_base/my-base-entity';
 
 export enum Permissions {
   Read = 'READ',

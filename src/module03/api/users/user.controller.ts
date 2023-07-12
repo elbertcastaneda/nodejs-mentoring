@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import ApiController from '~/api/_base/apiController';
+import ApiController from '~/api/_base/api-controller';
 import FindAllDto from './dtos/findAll.dto';
 import type UserService from './user.service';
 import User from './user.entity';

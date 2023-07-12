@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import getJwtConfig, { Keys } from '~/config/jwt.config';
 import UserService from '~/api/users/user.service';
-import { createPath } from '~/api/_base/apiController';
+import { createPath } from '~/api/_base/api-controller';
 import { processValidationErrors } from '~/_utils';
 import { UnauthorizedUserError } from '~/errors';
 

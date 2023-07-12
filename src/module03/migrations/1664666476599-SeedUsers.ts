@@ -1,4 +1,5 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
+
 import { generateHash } from '~/_utils/crypto';
 
 export class SeedUsers1664666476599 implements MigrationInterface {

@@ -21,9 +21,11 @@ import {
   Length,
 } from 'class-validator';
 import { v4 as uuid } from 'uuid';
-import Group from '~/api/groups/group.entity';
-import IUser from './user.type';
+
 import { compareHash } from '~/_utils/crypto';
+import Group from '~/api/groups/group.entity';
+
+import IUser from './user.type';
 
 @Entity({ name: 'users' })
 export default class User extends BaseEntity implements IUser {

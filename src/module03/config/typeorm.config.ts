@@ -7,7 +7,7 @@ import Group from '~/api/groups/group.entity';
 import { Initialize1664666415827 } from '~/migrations/1664666415827-Initialize';
 import { SeedUsers1664666476599 } from '~/migrations/1664666476599-SeedUsers';
 
-import BaseEntitySubscriber from '~/api/_base/baseEntity.subscriber';
+import BaseEntitySubscriber from '~/api/_base/base-entity.subscriber';
 import UserSubscriber from '~/api/users/user.subscriber';
 
 const {

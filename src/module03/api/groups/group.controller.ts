@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import type GroupService from '~/api/groups/group.service';
 
-import ApiController from '~/api/_base/apiController';
+import ApiController from '~/api/_base/api-controller';
 import User from '~/api/users/user.entity';
 
 export default class GroupsController extends ApiController<GroupService> {

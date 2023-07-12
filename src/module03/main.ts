@@ -4,12 +4,12 @@ import express, { json, urlencoded } from 'express';
 import helmet from 'helmet';
 import { StatusCodes } from 'http-status-codes';
 
-import dataSource from '~/config/typeorm.config';
 import { isApiError, logger } from '~/_utils';
 import apiModulesCreators from '~/api';
+import { Keys } from '~/config/jwt.config';
+import dataSource from '~/config/typeorm.config';
 import createSecurityRouter from '~/security';
 import { profiler, serverErrorHandler, simpleLogger } from '~/middlewares';
-import { Keys } from '~/config/jwt.config';
 
 const startServer = async (keys: Keys): Promise<void> => {
   const app = express();

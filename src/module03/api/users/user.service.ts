@@ -1,10 +1,9 @@
 import { Like, In, FindOptionsSelectByString } from 'typeorm';
+
+import BaseService from '~/api/_base/base-service';
 import { NotFoundError } from '~/errors';
 
-import BaseService from '~/api/_base/baseService';
-
 import FindAllDto from './dtos/findAll.dto';
-
 import User from './user.entity';
 
 const getNotFoundByLoginMessage = (login: string) => `User with login: '${login}' not found`;

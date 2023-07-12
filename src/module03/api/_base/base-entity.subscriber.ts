@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid';
 import User from '~/api/users/user.entity';
 import { AuthUserNotFound } from '~/errors';
 
-import type MyBaseEntity from './MyBaseEntity';
+import type MyBaseEntity from './my-base-entity';
 
 const instanceOfMyBaseEntity = (entity: BaseEntity) =>
   'id' in entity &&
